@@ -1,7 +1,13 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-    class Home extends MY_Controller {
-        public function index() {
-            $this->middle = 'home/home'; // its your view name, change for as per requirement.
-            $this->layout();
-        }
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Home extends MY_Controller {
+
+    public function index() {
+        $this->middle = 'home/home'; // its your view name, change for as per requirement.
+        $this->layout();
     }
+
+}
