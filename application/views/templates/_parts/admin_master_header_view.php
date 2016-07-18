@@ -28,7 +28,7 @@
 
     <!-- Custom Fonts -->
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />-->
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -372,9 +372,7 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-        <!------------>
-        
-        
+
         <div id="page-wrapper">
             <div class="row">
                 <div class="col-lg-12">
