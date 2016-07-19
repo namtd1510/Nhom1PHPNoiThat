@@ -10,6 +10,7 @@ class Dashboard extends Admin_Controller
  
   public function index()
   {
+      
     /*$this->load->view('admin/dashboard_view');*/
       $this->render('admin/dashboard_view');
   }
