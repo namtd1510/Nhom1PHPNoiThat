@@ -13,7 +13,6 @@ class UserModel extends MY_Model {
 
     // Read data using username and password
     public function checklogin($data) {
-
         $condition = "user_name =" . "'" . $data['username'] . "' AND " . "password =" . "'" . $data['password'] . "'";
         $this->db->select('*');
         $this->db->from('user');

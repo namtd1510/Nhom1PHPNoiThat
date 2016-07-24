@@ -24,10 +24,11 @@
 
     <!-- DataTables Responsive CSS -->
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
+    
+    <link href="<?php echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/js/jquery-1.4.3.min.js" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url(); ?>assets/admin/dist/css/sb-admin-2.css" rel="stylesheet">
-
+    
     <!-- Custom Fonts -->
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -251,7 +252,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?php echo site_url('admin/userController/logout');?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->

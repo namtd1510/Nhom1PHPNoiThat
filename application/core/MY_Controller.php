@@ -13,9 +13,10 @@ class MY_Controller extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('form', 'language', 'url'));
-        $this->load->library('ion_auth');
-        //$this->lang->load('english');
+        $this->load->helper(array('form', 'language', 'url'));             
+        // Load session library
+        $this->load->library('session');
+        
     }
 
     /* Front Page Layout */
@@ -36,12 +37,13 @@ class MY_Controller extends CI_Controller {
         $this->load->view('layout/front', $this->template);
     }
 
-    protected function render($the_view = NULL, $template = 'master') {
+    protected function render($the_view = NULL,$data,$dataname, $template = 'master') {
         if ($template == 'json' || $this->input->is_ajax_request()) {
             header('Content-Type: application/json');
             echo json_encode($this->data);
         } else {
             $this->data['the_view_content'] = (is_null($the_view)) ? '' : $this->load->view($the_view, $this->data, TRUE);     
+            $this->data[$dataname]=$data;
             $this->load->view('templates/' . $template . '_view', $this->data);
         }
     }
@@ -54,8 +56,8 @@ class Admin_Controller extends MY_Controller {
         parent::__construct();
     }
 
-    protected function render($the_view = NULL, $template = 'admin_master') {
-        parent::render($the_view, $template);
+    protected function render($the_view = NULL,$data,$dataname, $template = 'admin_master') {
+        parent::render($the_view,$data,$dataname, $template);
     }
 
 }

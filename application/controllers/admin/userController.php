@@ -1,40 +1,59 @@
 <?php
 
 defined('BASEPATH') OR exit('No direct script access allowed');
+
 class UserController extends Admin_Controller {
 
     function __construct() {
         parent::__construct();
-
-        // Load form helper library
         $this->load->helper('form');
-
-        // Load form validation library
         $this->load->library('form_validation');
-
-        // Load session library
-        $this->load->library('session');
-        
         $this->load->Model("UserModel");
+        //$this->load->helper('cookie');
     }
-
+    public function account_manager()
+    {
+        $data=$this->UserModel->listall();
+        $this->load->view('admin/user_view',$data);
+    }
     public function index() {
-        $this->load->view('admin/user_view');
         
-    }
-    public function check_user_login() {
-        $data['password']=$this->input->post('password');
-        $data['username']=$this->input->post('username');
-        $remember = (bool) $this->input->post('remember');
-        if($this->UserModel->checklogin($data))
-        {
-            $this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember);
+        if (isset($this->session->userdata['user_session'])) {
             redirect('admin/Dashboard');
         }
-        else {
-            $this->session->set_flashdata('message', 'Your username or password was entered incorrectlye');
-            redirect('admin/UserController');
-        }
-        
+        $this->load->view('admin/login_view');
     }
+
+    public function logout() {
+        $this->session->sess_destroy();	// Unset session of user
+        //delete_cookie('user_cookie');	
+        //setcookie("user_cookie","a",time() - 3600);
+        redirect('admin/UserController');
+    }
+
+    public function check_user_login() {
+        $data['password'] = $this->input->post('password');
+        $data['username'] = $this->input->post('username');
+        $remember = (bool) $this->input->post('remember');
+        if (isset($this->session->userdata['user']['id'])) {
+            redirect(base_url('admin/Dashboard'));
+        } else {
+            if ($this->UserModel->checklogin($data)) {
+                $user_info = array(
+                    'username' => $data['username'],
+                    'password' => $data['password']
+                );
+                //if ($remember) {
+                    //$cookie_time = 3600;
+                    //setcookie('user_cookie', 'a', time() + $cookie_time);
+                //}
+                $this->session->set_userdata('user_session', $user_info);
+                redirect('admin/Dashboard');
+            } else {
+                $this->session->set_flashdata('message', 'Your username or password was entered incorrectlye');
+                redirect('admin/UserController');
+            }
+        }
+    }
+
 }
