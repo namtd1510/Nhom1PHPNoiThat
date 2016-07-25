@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                <div align="right" class="panel-heading"><button data-toggle="modal" data-target="#myModal" class="btn btn-outline btn-success" type="button">Add New</button></div>
+                <!--<div align="right" class="panel-heading"><button data-toggle="modal" data-target="#loginModal" class="btn btn-outline btn-success" type="button">Add New</button></div>-->
                 <div class="panel-body">
                     <div class="dataTable_wrapper">
                         <table class="table table-striped table-bordered table-hover" id="dataTables-example">                            
@@ -49,57 +49,89 @@
             <!-- /.panel -->
         </div>
         <!-- /.col-lg-12 -->
-    </div>   
+    </div>  
 
 
 
-    <div class="container">
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Add User</h4>
-                    </div>
-                    
-                    <div class="modal-body">
-                        <div class = "form-group">
-                            <label for="ex2">col-xs-3</label>
-                            <input class = "form-control input-sm" type = "text" placeholder =".input-lg">
-                        </div>                    
-                    </div>                  
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
+
+
+
+    <p class="text-center">
+        <button class="btn btn-default" data-toggle="modal" data-target="#loginModal">Login</button>
+    </p>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="Login" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 class="modal-title">Login</h5>
+                </div>
+
+                <div class="modal-body">
+                    <!-- The form is placed inside the body of modal -->
+                    <form id="loginForm" method="post" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Username</label>
+                            <div class="col-xs-5">
+                                <input type="text" class="form-control" name="username" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">Password</label>
+                            <div class="col-xs-5">
+                                <input type="password" class="form-control" name="password" />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-xs-5 col-xs-offset-3">
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <style type="text/css">
-        .form-control{
-            
-            width:20%;
-        }
-        .modal {
-            text-align: center;
-            padding: 0!important;
-        }
-        
-        .modal:before {
-            content: '';
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-            margin-right: -4px;
-        }
 
-        .modal-dialog {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
-        }
-    </style>
+    <script>
+        $(document).ready(function () {
+            $('#loginForm').formValidation({
+                framework: 'bootstrap',
+                excluded: ':disabled',
+                icon: {
+                    valid: 'glyphicon glyphicon-ok',
+                    invalid: 'glyphicon glyphicon-remove',
+                    validating: 'glyphicon glyphicon-refresh'
+                },
+                fields: {
+                    username: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The username is required'
+                            }
+                        }
+                    },
+                    password: {
+                        validators: {
+                            notEmpty: {
+                                message: 'The password is required'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+
+
+
 
 </div>
+
 <!-- /#page-wrapper -->
