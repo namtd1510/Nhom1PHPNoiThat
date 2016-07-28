@@ -10,7 +10,10 @@ class UserModel extends MY_Model {
         $query = $this->db->get("user");
         return $query->result_array();
     }
-
+    
+    public function insert($data) {
+        $this->db->insert('user', $data);
+    }
     // Read data using username and password
     public function checklogin($data) {
         $condition = "user_name =" . "'" . $data['username'] . "' AND " . "password =" . "'" . $data['password'] . "'";

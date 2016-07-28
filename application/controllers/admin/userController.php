@@ -11,13 +11,25 @@ class UserController extends Admin_Controller {
         $this->load->Model("UserModel");
         //$this->load->helper('cookie');
     }
-    public function account_manager()
-    {
-        $data=$this->UserModel->listall();
-        $this->load->view('admin/user_view',$data);
+
+    public function account_manager() {
+        $data = $this->UserModel->listall();
+        $this->load->view('admin/user_view', $data);
     }
-    public function index() {
+
+    public function add_user() {
         
+        $data = array(
+            'user_name' => $_POST['username'],
+            'password' => $_POST['password'],
+            'email' => $_POST['email'],
+            'full_name' => $_POST['fullname']
+        );
+        $this->UserModel->insert($data);
+    }
+
+    public function index() {
+
         if (isset($this->session->userdata['user_session'])) {
             redirect('admin/Dashboard');
         }
@@ -25,7 +37,7 @@ class UserController extends Admin_Controller {
     }
 
     public function logout() {
-        $this->session->sess_destroy();	// Unset session of user
+        $this->session->sess_destroy(); // Unset session of user
         //delete_cookie('user_cookie');	
         //setcookie("user_cookie","a",time() - 3600);
         redirect('admin/UserController');
@@ -44,8 +56,8 @@ class UserController extends Admin_Controller {
                     'password' => $data['password']
                 );
                 //if ($remember) {
-                    //$cookie_time = 3600;
-                    //setcookie('user_cookie', 'a', time() + $cookie_time);
+                //$cookie_time = 3600;
+                //setcookie('user_cookie', 'a', time() + $cookie_time);
                 //}
                 $this->session->set_userdata('user_session', $user_info);
                 redirect('admin/Dashboard');
