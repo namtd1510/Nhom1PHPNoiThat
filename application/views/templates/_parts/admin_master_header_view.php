@@ -10,9 +10,6 @@
     <meta name="author" content="">
 
     <title>Furniture Admin</title>
-
-    
-    
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,7 +20,7 @@
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="<?php echo base_url(); ?>assets/admin/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <!--<link href="<?php //echo base_url(); ?>assets/admin/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">-->
     
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/js/bootstrapValidator.js" rel="stylesheet">
     <!-- Custom CSS -->
@@ -47,13 +44,13 @@
 
     <!-- DataTables JavaScript -->
     <script src="<?php echo base_url(); ?>assets/admin/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="<?php echo base_url(); ?>assets/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
+    
+    <script src="<?php echo base_url(); ?>assets/admin/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="<?php echo base_url(); ?>assets/admin/dist/js/sb-admin-2.js"></script>
     
     
-    <script src="<?php echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/js/bootstrapValidator.js"></script>
+    <!--<script src="<?php //echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/js/bootstrapValidator.js"></script>-->
     
     
     
