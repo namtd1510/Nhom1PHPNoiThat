@@ -60,20 +60,20 @@ class Admin_Controller extends MY_Controller {
         parent::render($the_view,$data,$dataname, $template);
     }
     
-    /*public function ajax_list($obj,$table) {
+    public function ajax_list($table_field,$table) {
+        
         $list = $this->UserModel->get_datatables($table);
         $data = array();
         $no = $_POST['start'];
-        foreach ($list as $u) {
+        foreach ($list as $obj) {
             $no++;
             $row = array();
-            $row[] = $u->user_name;
-            $row[] = $u->password;
-            $row[] = $u->email;
-            $row[] = $u->full_name;
-            //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_user(' . "'" . $u->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_user(' . "'" . $u->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            for($i=0;$i<count($table_field);$i++)
+            {
+                $row[]=get_object_vars($obj)[$table_field[$i]];
+            }
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_user(' . "'" . $obj->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_user(' . "'" . $obj->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
             $data[] = $row;
         }
 
@@ -85,7 +85,34 @@ class Admin_Controller extends MY_Controller {
         );
         //output to json format
         echo json_encode($output);
-    }*/
+    }
+    public function ajax_edit($id,$table) {
+        
+        $data = $this->UserModel->get_by_id($id, $table);
+        echo json_encode($data);
+    }
+    public function ajax_delete($id,$table) {
+        $this->UserModel->delete_by_id($id, $table);
+        echo json_encode(array("status" => TRUE));
+    }
+    public function validate($field_require) {
+        $data = array();
+        $data['error_string'] = array();
+        $data['inputerror'] = array();
+        $data['status'] = TRUE;
+
+        for ($i = 0; $i < count($field_require); $i++) {
+            if ($this->input->post($field_require[$i]) == '') {
+                $data['inputerror'][] = $field_require[$i];
+                $data['error_string'][] = 'Field is required';
+                $data['status'] = FALSE;
+            }
+        }
+        if ($data['status'] === FALSE) {
+            echo json_encode($data);
+            exit();
+        }
+    }
 
 }
 

@@ -5,7 +5,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class UserController extends Admin_Controller {
 
     var $table = 'user';
-
+    var $table_field = array("user_name", "password", "email", "full_name");
+    var $field_require = array("user_name", "password", "email", "full_name");
     function __construct() {
         parent::__construct();
         $this->load->helper('form');
@@ -22,67 +23,40 @@ class UserController extends Admin_Controller {
         $this->load->view('admin/login_view');
     }
 
-    /* public function account_manager() {
-      $data = $this->UserModel->listall();
-      $this->load->view('admin/user_view', $data);
-      } */
-
-    public function ajax_list() {
-        $list = $this->UserModel->get_datatables($this->table);
-        $data = array();
-        $no = $_POST['start'];
-        foreach ($list as $u) {
-            $no++;
-            $row = array();
-            $row[] = $u->user_name;
-            $row[] = $u->password;
-            $row[] = $u->email;
-            $row[] = $u->full_name;
-            //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_user(' . "'" . $u->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_user(' . "'" . $u->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
-            $data[] = $row;
-        }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->UserModel->count_all($this->table),
-            "recordsFiltered" => $this->UserModel->count_filtered($this->table),
-            "data" => $data,
-        );
-        //output to json format
-        echo json_encode($output);
+    public function user_list() {
+        $this->ajax_list($this->table_field, $this->table);
     }
+
     public function ajax_add() {
-        $this->_validate();
+        $this->validate($this->field_require);
         $data = array(
             'user_name' => $this->input->post('user_name'),
             'password' => $this->input->post('password'),
             'email' => $this->input->post('email'),
             'full_name' => $this->input->post('full_name'),
         );
-        $insert = $this->UserModel->save($data,$this->table);
-        echo json_encode(array("status" => TRUE));
-    }
-    public function ajax_edit($id) {
-        $data = $this->UserModel->get_by_id($id, $this->table);
-        echo json_encode($data);
-    }
-    public function ajax_update() {
-        $this->_validate();
-        $data = array(
-            'user_name' => $this->input->post('user_name'),
-            'password' => $this->input->post('password'),
-            'email' => $this->input->post('email'),
-            'full_name' => $this->input->post('full_name'),
-        );
-        $this->UserModel->update(array('id' => $this->input->post('id')), $data,$this->table);
+        $insert = $this->UserModel->save($data, $this->table);
         echo json_encode(array("status" => TRUE));
     }
 
-    public function ajax_delete($id) {
-        $this->UserModel->delete_by_id($id, $this->table);
+    public function user_edit($id) {
+        $this->ajax_edit($id, $this->table);
+    }
+
+    public function ajax_update() {
+        $this->validate($this->field_require);
+        $data = array(
+            'user_name' => $this->input->post('user_name'),
+            'password' => $this->input->post('password'),
+            'email' => $this->input->post('email'),
+            'full_name' => $this->input->post('full_name'),
+        );
+        $this->UserModel->update(array('id' => $this->input->post('id')), $data, $this->table);
         echo json_encode(array("status" => TRUE));
+    }
+
+    public function user_delete($id) {
+        $this->ajax_delete($id, $this->table);
     }
 
     public function logout() {
@@ -116,41 +90,4 @@ class UserController extends Admin_Controller {
             }
         }
     }
-
-    private function _validate() {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
-
-        if ($this->input->post('user_name') == '') {
-            $data['inputerror'][] = 'user_name';
-            $data['error_string'][] = 'User Name is required';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('password') == '') {
-            $data['inputerror'][] = 'password';
-            $data['error_string'][] = 'Password is required';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('email') == '') {
-            $data['inputerror'][] = 'email';
-            $data['error_string'][] = 'Email is required';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('full_name') == '') {
-            $data['inputerror'][] = 'full_name';
-            $data['error_string'][] = 'Full Name is required';
-            $data['status'] = FALSE;
-        }
-
-        if ($data['status'] === FALSE) {
-            echo json_encode($data);
-            exit();
-        }
-    }
-
 }

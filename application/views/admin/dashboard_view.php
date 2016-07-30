@@ -52,7 +52,7 @@
 
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "<?php echo site_url('admin/userController/ajax_list')?>",
+                    "url": "<?php echo site_url('admin/userController/user_list')?>",
                     "type": "POST"
                 },
                 //Set column definition initialisation properties.
@@ -102,7 +102,7 @@
 
             //Ajax Load data from ajax
             $.ajax({
-                url: "<?php echo site_url('admin/userController/ajax_edit/')?>/" + id,
+                url: "<?php echo site_url('admin/userController/user_edit/')?>/" + id,
                 type: "GET",
                 dataType: "JSON",
                 success: function (data)
@@ -183,7 +183,7 @@
             {
                 // ajax delete data to database
                 $.ajax({
-                    url: "<?php echo site_url('admin/userController/ajax_delete')?>/"+id,
+                    url: "<?php echo site_url('admin/userController/user_delete')?>/"+id,
                     type: "POST",
                     dataType: "JSON",
                     success: function (data)
