@@ -12,7 +12,7 @@
     <title>Furniture Admin</title>
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
+              
     <!-- MetisMenu CSS -->
     <link href="<?php echo base_url(); ?>assets/admin/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
@@ -50,7 +50,6 @@
     <script src="<?php echo base_url(); ?>assets/admin/dist/js/sb-admin-2.js"></script>
     
     
-    <!--<script src="<?php //echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/js/bootstrapValidator.js"></script>-->
     
     
     
@@ -70,7 +69,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Furniture Admin</a>
+                
+                <a class="navbar-brand" href="<?php echo site_url('admin/userController/index')?>">Furniture Admin</a>
             </div>
             <!-- /.navbar-header -->
 

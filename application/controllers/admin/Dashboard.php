@@ -14,6 +14,7 @@ class Dashboard extends Admin_Controller {
         $this->load->Model("UserModel");
         $dataname='user';
         $this->data[$dataname] = $this->UserModel->listall();
+        
         //$this->template['megamenu'] = $this->load->view('layout/megamenu', $data, true);
         $this->render('admin/dashboard_view', $this->data,$dataname);
     }

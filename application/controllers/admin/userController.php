@@ -4,6 +4,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class UserController extends Admin_Controller {
 
+    var $table = 'user';
+
     function __construct() {
         parent::__construct();
         $this->load->helper('form');
@@ -26,7 +28,7 @@ class UserController extends Admin_Controller {
       } */
 
     public function ajax_list() {
-        $list = $this->UserModel->get_datatables();
+        $list = $this->UserModel->get_datatables($this->table);
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $u) {
@@ -44,14 +46,13 @@ class UserController extends Admin_Controller {
 
         $output = array(
             "draw" => $_POST['draw'],
-            "recordsTotal" => $this->UserModel->count_all(),
-            "recordsFiltered" => $this->UserModel->count_filtered(),
+            "recordsTotal" => $this->UserModel->count_all($this->table),
+            "recordsFiltered" => $this->UserModel->count_filtered($this->table),
             "data" => $data,
         );
         //output to json format
         echo json_encode($output);
     }
-
     public function ajax_add() {
         $this->_validate();
         $data = array(
@@ -60,15 +61,13 @@ class UserController extends Admin_Controller {
             'email' => $this->input->post('email'),
             'full_name' => $this->input->post('full_name'),
         );
-        $insert = $this->UserModel->save($data);
+        $insert = $this->UserModel->save($data,$this->table);
         echo json_encode(array("status" => TRUE));
     }
-
     public function ajax_edit($id) {
-        $data = $this->UserModel->get_by_id($id);
+        $data = $this->UserModel->get_by_id($id, $this->table);
         echo json_encode($data);
     }
-
     public function ajax_update() {
         $this->_validate();
         $data = array(
@@ -77,12 +76,12 @@ class UserController extends Admin_Controller {
             'email' => $this->input->post('email'),
             'full_name' => $this->input->post('full_name'),
         );
-        $this->UserModel->update(array('id' => $this->input->post('id')), $data);
+        $this->UserModel->update(array('id' => $this->input->post('id')), $data,$this->table);
         echo json_encode(array("status" => TRUE));
     }
 
     public function ajax_delete($id) {
-        $this->UserModel->delete_by_id($id);
+        $this->UserModel->delete_by_id($id, $this->table);
         echo json_encode(array("status" => TRUE));
     }
 

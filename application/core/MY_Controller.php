@@ -59,6 +59,33 @@ class Admin_Controller extends MY_Controller {
     protected function render($the_view = NULL,$data,$dataname, $template = 'admin_master') {
         parent::render($the_view,$data,$dataname, $template);
     }
+    
+    /*public function ajax_list($obj,$table) {
+        $list = $this->UserModel->get_datatables($table);
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $u) {
+            $no++;
+            $row = array();
+            $row[] = $u->user_name;
+            $row[] = $u->password;
+            $row[] = $u->email;
+            $row[] = $u->full_name;
+            //add html for action
+            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_user(' . "'" . $u->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_user(' . "'" . $u->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            $data[] = $row;
+        }
+
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->UserModel->count_all($table),
+            "recordsFiltered" => $this->UserModel->count_filtered($table),
+            "data" => $data,
+        );
+        //output to json format
+        echo json_encode($output);
+    }*/
 
 }
 
