@@ -81,19 +81,30 @@
                     <form action="#" id="form" class="form-horizontal">
                         <input type="hidden" value="" name="id"/> 
                         <div class="form-body">
+                            
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Image</label>
+                                <div class="col-md-5">
+                                    <img  src="<?php echo base_url("uploads/Chrysanthemum.jpg");?>" width="200" height="200">
+                                </div>
+                                <!--<span class='label label-info' id="upload-file-info"></span>-->
+                            </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Slide URL</label>
                                 <div class="col-md-5">
-                                    <input name="slide_url" placeholder="Slide URL" class="form-control" type="text">
+                                    <input readonly name="slide_url" id="upload-file-info" placeholder="Slide URL" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                                <label class="btn btn-default btn-file">
-                                    Browse <input type="file" style="display: none;">
+                                <label class="btn btn-primary" for="my-file-selector">
+                                    <input  id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').val($(this).val());">
+                                    Browser
                                 </label>
+                                <!--<span class='label label-info' id="upload-file-info"></span>-->
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3">Slide Date</label>
                                 <div class="col-md-5">
+                                    
                                     <input name="slide_date" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
                                     <span class="help-block"></span>
                                 </div>
