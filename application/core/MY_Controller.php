@@ -13,10 +13,9 @@ class MY_Controller extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->helper(array('form', 'language', 'url'));             
+        $this->load->helper(array('form', 'language', 'url'));
         // Load session library
         $this->load->library('session');
-        
     }
 
     /* Front Page Layout */
@@ -37,13 +36,13 @@ class MY_Controller extends CI_Controller {
         $this->load->view('layout/front', $this->template);
     }
 
-    protected function render($the_view = NULL,$data,$dataname, $template = 'master') {
+    protected function render($the_view = NULL, $data, $dataname, $template = 'master') {
         if ($template == 'json' || $this->input->is_ajax_request()) {
             header('Content-Type: application/json');
             echo json_encode($this->data);
         } else {
-            $this->data['the_view_content'] = (is_null($the_view)) ? '' : $this->load->view($the_view, $this->data, TRUE);     
-            $this->data[$dataname]=$data;
+            $this->data['the_view_content'] = (is_null($the_view)) ? '' : $this->load->view($the_view, $this->data, TRUE);
+            $this->data[$dataname] = $data;
             $this->load->view('templates/' . $template . '_view', $this->data);
         }
     }
@@ -56,44 +55,8 @@ class Admin_Controller extends MY_Controller {
         parent::__construct();
     }
 
-    protected function render($the_view = NULL,$data,$dataname, $template = 'admin_master') {
-        parent::render($the_view,$data,$dataname, $template);
-    }
-    
-    public function ajax_list($table_field,$table) {
-        
-        $list = $this->UserModel->get_datatables($table);
-        $data = array();
-        $no = $_POST['start'];
-        foreach ($list as $obj) {
-            $no++;
-            $row = array();
-            for($i=0;$i<count($table_field);$i++)
-            {
-                $row[]=get_object_vars($obj)[$table_field[$i]];
-            }
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_user(' . "'" . $obj->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_user(' . "'" . $obj->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
-            $data[] = $row;
-        }
-
-        $output = array(
-            "draw" => $_POST['draw'],
-            "recordsTotal" => $this->UserModel->count_all($table),
-            "recordsFiltered" => $this->UserModel->count_filtered($table),
-            "data" => $data,
-        );
-        //output to json format
-        echo json_encode($output);
-    }
-    public function ajax_edit($id,$table) {
-        
-        $data = $this->UserModel->get_by_id($id, $table);
-        echo json_encode($data);
-    }
-    public function ajax_delete($id,$table) {
-        $this->UserModel->delete_by_id($id, $table);
-        echo json_encode(array("status" => TRUE));
+    protected function render($the_view = NULL, $data, $dataname, $template = 'admin_master') {
+        parent::render($the_view, $data, $dataname, $template);
     }
     public function validate($field_require) {
         $data = array();
@@ -112,6 +75,19 @@ class Admin_Controller extends MY_Controller {
             echo json_encode($data);
             exit();
         }
+    }
+
+    public function get_post_param($arr) {
+        $arr2=array();
+        for ($i = 0; $i < count($arr); $i++)
+            $arr2[$i]=$this->input->post($arr[$i]);
+        $data=array_combine($arr, $arr2);                
+        return $data;
+    }
+    public function string_action($id)
+    {
+        return '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_ajax(' . "'" . $id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
+                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_ajax(' . "'" . $id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';;
     }
 
 }

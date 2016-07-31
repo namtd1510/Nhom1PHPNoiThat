@@ -5,7 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class _SlideController extends Admin_Controller {
 
     var $table = 'slide';
-
+    var $table_field = array("slide_url", "slide_date");
+    var $require_field = array("slide_url", "slide_date");
+    var $post_field = array("slide_url", "slide_date");
     function __construct() {
         parent::__construct();
         $this->load->helper('form');
@@ -30,30 +32,24 @@ class _SlideController extends Admin_Controller {
         foreach ($list as $obj) {
             $no++;
             $row = array();
-            $row[] = $obj->slide_url;
-            $row[] = $obj->slide_date;
-            //add html for action
-            $row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_slide(' . "'" . $obj->id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_slide(' . "'" . $obj->id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
+            for ($i = 0; $i < count($this->table_field); $i++) {
+                $row[] = get_object_vars($obj)[$this->table_field[$i]];
+            }
+            $row[] = $this->string_action($obj->id);
             $data[] = $row;
         }
-
         $output = array(
             "draw" => $_POST['draw'],
             "recordsTotal" => $this->SlideModel->count_all($this->table),
             "recordsFiltered" => $this->SlideModel->count_filtered($this->table),
             "data" => $data,
         );
-        //output to json format
         echo json_encode($output);
     }
     public function ajax_add() {
-        $this->_validate();
-        $data = array(
-            'slide_url' => $this->input->post('slide_url'),
-            'slide_date' => $this->input->post('slide_date'),
-        );
-        $insert = $this->SlideModel->save($data,$this->table);
+        $this->validate($this->require_field);
+        $data=$this->get_post_param($this->post_field);
+        $insert = $this->SlideModel->save($data, $this->table);
         echo json_encode(array("status" => TRUE));
     }
     public function ajax_edit($id) {
@@ -61,12 +57,9 @@ class _SlideController extends Admin_Controller {
         echo json_encode($data);
     }
     public function ajax_update() {
-        $this->_validate();
-        $data = array(
-            'slide_url' => $this->input->post('slide_url'),
-            'slide_date' => $this->input->post('slide_date'),
-        );
-        $this->SlideModel->update(array('id' => $this->input->post('id')), $data,$this->table);
+        $this->validate($this->require_field);
+        $data=$this->get_post_param($this->post_field);
+        $this->SlideModel->update(array('id' => $this->input->post('id')), $data, $this->table);
         echo json_encode(array("status" => TRUE));
     }
 
@@ -74,29 +67,4 @@ class _SlideController extends Admin_Controller {
         $this->SlideModel->delete_by_id($id, $this->table);
         echo json_encode(array("status" => TRUE));
     }
-    private function _validate() {
-        $data = array();
-        $data['error_string'] = array();
-        $data['inputerror'] = array();
-        $data['status'] = TRUE;
-
-        if ($this->input->post('slide_url') == '') {
-            $data['inputerror'][] = 'slide_url';
-            $data['error_string'][] = 'Slide URL is required';
-            $data['status'] = FALSE;
-        }
-
-        if ($this->input->post('slide_date') == '') {
-            $data['inputerror'][] = 'slide_date';
-            $data['error_string'][] = 'Slide Date is required';
-            $data['status'] = FALSE;
-        }
-
-
-        if ($data['status'] === FALSE) {
-            echo json_encode($data);
-            exit();
-        }
-    }
-
 }

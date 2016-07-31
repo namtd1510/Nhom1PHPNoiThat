@@ -6,7 +6,8 @@ class UserController extends Admin_Controller {
 
     var $table = 'user';
     var $table_field = array("user_name", "password", "email", "full_name");
-    var $field_require = array("user_name", "password", "email", "full_name");
+    var $require_field = array("user_name", "password", "email", "full_name");
+    var $post_field = array("user_name", "password", "email", "full_name");    
     function __construct() {
         parent::__construct();
         $this->load->helper('form');
@@ -23,40 +24,51 @@ class UserController extends Admin_Controller {
         $this->load->view('admin/login_view');
     }
 
-    public function user_list() {
-        $this->ajax_list($this->table_field, $this->table);
-    }
-
-    public function ajax_add() {
-        $this->validate($this->field_require);
-        $data = array(
-            'user_name' => $this->input->post('user_name'),
-            'password' => $this->input->post('password'),
-            'email' => $this->input->post('email'),
-            'full_name' => $this->input->post('full_name'),
+    public function ajax_list() {
+        $list = $this->UserModel->get_datatables($this->table);
+        $data = array();
+        $no = $_POST['start'];
+        foreach ($list as $obj) {
+            $no++;
+            $row = array();
+            for ($i = 0; $i < count($this->table_field); $i++) {
+                $row[] = get_object_vars($obj)[$this->table_field[$i]];
+            }
+            $row[] = $this->string_action($obj->id);
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->UserModel->count_all($this->table),
+            "recordsFiltered" => $this->UserModel->count_filtered($this->table),
+            "data" => $data,
         );
+        echo json_encode($output);
+    }
+    
+            
+    public function ajax_add() {
+        $this->validate($this->require_field);
+        $data=$this->get_post_param($this->post_field);
         $insert = $this->UserModel->save($data, $this->table);
         echo json_encode(array("status" => TRUE));
     }
 
-    public function user_edit($id) {
-        $this->ajax_edit($id, $this->table);
+    public function ajax_edit($id) {
+        $data = $this->UserModel->get_by_id($id, $this->table);
+        echo json_encode($data);
     }
-
+    
     public function ajax_update() {
-        $this->validate($this->field_require);
-        $data = array(
-            'user_name' => $this->input->post('user_name'),
-            'password' => $this->input->post('password'),
-            'email' => $this->input->post('email'),
-            'full_name' => $this->input->post('full_name'),
-        );
+        $this->validate($this->require_field);
+        $data=$this->get_post_param($this->post_field);
         $this->UserModel->update(array('id' => $this->input->post('id')), $data, $this->table);
         echo json_encode(array("status" => TRUE));
-    }
-
-    public function user_delete($id) {
-        $this->ajax_delete($id, $this->table);
+    }    
+    
+    public function ajax_delete($id) {
+        $this->UserModel->delete_by_id($id, $this->table);
+        echo json_encode(array("status" => TRUE));
     }
 
     public function logout() {

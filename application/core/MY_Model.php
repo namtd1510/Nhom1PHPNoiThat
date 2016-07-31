@@ -65,7 +65,6 @@ class MY_Model extends CI_Model {
         $this->db->from($table);
         $this->db->where('id', $id);
         $query = $this->db->get();
-
         return $query->row();
     }
     
