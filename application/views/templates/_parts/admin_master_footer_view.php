@@ -56,13 +56,14 @@
         $('#modal_form').modal('show'); // show bootstrap modal
         $('.modal-title').text('Add User'); // Set Title to Bootstrap modal title
     }
-
+    
     
     function reload_table()
     {
         table.ajax.reload(null, false); //reload datatable ajax 
     }
-
+    
+    
     function save()
     {
         $('#btnSave').text('saving...'); //change button text
@@ -71,10 +72,15 @@
 
         if (save_method == 'add') {
             url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_add";
-        } else {
+        } else if(save_method == 'update'){
             url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_update";
         }
-
+        else if(save_method == 'upload')
+        {
+            
+            url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_upload";            
+        }
+        
         // ajax adding data to database
         $.ajax({
             url: url,

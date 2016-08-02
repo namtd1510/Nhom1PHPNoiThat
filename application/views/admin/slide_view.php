@@ -34,14 +34,22 @@
                 }
             });
         }
-
+        function upload_ajax()
+        {
+            save_method = 'upload';
+            $('#form')[0].reset(); // reset form on modals
+            $('.form-group').removeClass('has-error'); // clear error class
+            $('.help-block').empty(); // clear error string
+            $('#modal_form').modal('show'); // show bootstrap modal
+            $('.modal-title').text('Upload'); // Set Title to Bootstrap modal title
+        }
     </script>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div align="right" class="panel-heading">
-                    <button class="btn btn-success" onclick="add_ajax()"><i class="glyphicon glyphicon-plus"></i>Add Slide</button>
+                    <button class="btn btn-success" onclick="upload_ajax()"><i class="glyphicon glyphicon-plus"></i>Upload Slide</button>
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i>Reload</button>
                 </div>
                 <div class="panel-body">
@@ -49,7 +57,7 @@
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Slide URL</th>
+                                    <th>Image</th>
                                     <th>Date</th>
                                     <th style="width:125px;">Action</th>
                                 </tr>
@@ -78,42 +86,21 @@
                     <h3 class="modal-title">Slide Form</h3>
                 </div>
                 <div class="modal-body form">
-                    <form action="#" id="form" class="form-horizontal">
+                    <form action="#" id="form" class="form-horizontal" enctype="multipart/form-data">
                         <input type="hidden" value="" name="id"/> 
-                        <div class="form-body">
-                            
+                        <div class="form-body">                            
                             <div class="form-group">
-                                <label class="control-label col-md-3">Image</label>
-                                <div class="col-md-5">
-                                    <img  src="<?php echo base_url("uploads/Chrysanthemum.jpg");?>" width="200" height="200">
-                                </div>
-                                <!--<span class='label label-info' id="upload-file-info"></span>-->
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Slide URL</label>
-                                <div class="col-md-5">
-                                    <input readonly name="slide_url" id="upload-file-info" placeholder="Slide URL" class="form-control" type="text">
+                                <label for="filename" class="control-label col-md-4">Select File to Upload</label>
+                                <div class="col-md-3">
+                                    <input type="file" name="filename" size="20" />
                                     <span class="help-block"></span>
                                 </div>
-                                <label class="btn btn-primary" for="my-file-selector">
-                                    <input  id="my-file-selector" type="file" style="display:none;" onchange="$('#upload-file-info').val($(this).val());">
-                                    Browser
-                                </label>
-                                <!--<span class='label label-info' id="upload-file-info"></span>-->
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3">Slide Date</label>
-                                <div class="col-md-5">
-                                    
-                                    <input name="slide_date" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
-                                    <span class="help-block"></span>
-                                </div>
-                            </div>   
+                            </div>                             
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
+                    <input type="button" onclick="save()" value="Upload File" class="btn btn-primary"/>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
             </div><!-- /.modal-content -->
