@@ -49,7 +49,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div align="right" class="panel-heading">
-                    <button class="btn btn-success" onclick="upload_ajax()"><i class="glyphicon glyphicon-plus"></i>Upload Slide</button>
+                    <a class="btn btn-success" href="<?php echo site_url('admin/uploadfile')?>"><i class="glyphicon glyphicon-plus"></i>Upload Slide</a>
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i>Reload</button>
                 </div>
                 <div class="panel-body">
@@ -86,21 +86,29 @@
                     <h3 class="modal-title">Slide Form</h3>
                 </div>
                 <div class="modal-body form">
-                    <form action="#" id="form" class="form-horizontal" enctype="multipart/form-data">
+                    <form action="#" id="form" class="form-horizontal">
                         <input type="hidden" value="" name="id"/> 
-                        <div class="form-body">                            
+                        <div class="form-body">
                             <div class="form-group">
-                                <label for="filename" class="control-label col-md-4">Select File to Upload</label>
-                                <div class="col-md-3">
-                                    <input type="file" name="filename" size="20" />
+                                <label class="control-label col-md-3">User Name</label>
+                                <div class="col-md-9">
+                                    <input name="slide_url" placeholder="Slide URL" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                            </div>                             
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Password</label>
+                                <div class="col-md-9">
+                                    <input name="slide_date" placeholder="Slide Date" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>                            
+                            
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <input type="button" onclick="save()" value="Upload File" class="btn btn-primary"/>
+                    <button type="button" id="btnSave" onclick="save()" class="btn btn-primary">Save</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                 </div>
             </div><!-- /.modal-content -->

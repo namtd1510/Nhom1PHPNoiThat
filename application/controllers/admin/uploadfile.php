@@ -11,7 +11,7 @@ class uploadfile extends CI_Controller {
     function index()
     {
         //load file upload form
-        $this->load->view('upload_file_view');
+        $this->load->view('admin/upload_slide');
     }
 
     //file upload function

@@ -92,6 +92,7 @@
 
                 if (data.status) //if success close modal and reload ajax table
                 {
+                    
                     $('#modal_form').modal('hide');
                     reload_table();
                 } else

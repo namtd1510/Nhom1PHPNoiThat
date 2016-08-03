@@ -77,7 +77,7 @@ class _SlideController extends Admin_Controller {
         echo json_encode(array("status" => TRUE));
     }
     
-    function ajax_upload()
+    function upload()
     {
         //set preferences
         $this->load->helper(array('form', 'url'));
@@ -87,13 +87,27 @@ class _SlideController extends Admin_Controller {
 
         //load upload class library
         $this->load->library('upload', $config);
-        if ($this->upload->do_upload('filename'))
+        if (!$this->upload->do_upload('filename'))
         {
-            $upload_data = $this->upload->data();
-            //$data['success_msg'] = '<div class="alert alert-success text-center">Your file <strong>' . $upload_data['file_name'] . '</strong> was successfully uploaded!</div>';
-            //$this->load->view('upload_file_view', $data);
+            // case - failure
+            $upload_error = array('error' => $this->upload->display_errors());
+            $this->load->view('admin/upload_slide', $upload_error);
+            
         }
-        echo json_encode(array("status" => TRUE));
+        else
+        {
+            // case - success
+            $upload_data = $this->upload->data();
+            $data['success_msg'] = '<div class="alert alert-success text-center">Your file <strong>' . $upload_data['file_name'] . '</strong> was successfully uploaded!</div>';
+            $this->load->view('admin/upload_slide', $data);
+            
+            $date=date("Y-m-d");
+            $slide_url=$upload_data['full_path'];
+            $data_insert['slide_url']=$slide_url;
+            $data_insert['date']=$date;
+            $this->SlideModel->save($data_insert, $this->table);
+        }
+        //redirect('_slideController/index', 'refresh');
     }
 
 }
