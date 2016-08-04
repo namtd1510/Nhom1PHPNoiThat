@@ -26,6 +26,9 @@
                                     <a href="<?php echo site_url('admin/_slideController/index')?>">Slide</a>
                                 </li>
                                 <li>
+                                    <a href="<?php echo site_url('admin/_productController/index')?>">Product</a>
+                                </li>
+                                <li>
                                     <a href="#">Third Level <span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level">
                                         <li>

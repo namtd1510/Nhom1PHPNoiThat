@@ -1,11 +1,11 @@
 <div id="page-wrapper">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Slide Manager</h1>
+            <h1 class="page-header">Product Manager</h1>
         </div>
     </div> 
     <script type="text/javascript">
-        var controller = '_slideController';
+        var controller = '_productController';
         function edit_ajax(id)
         {
             save_method = 'update';
@@ -57,19 +57,12 @@
 
 
         /*function load_image() {
-            $('.pop').load("ajax/test.html", function () {
-                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-                $('#imagemodal').modal('show');
-            });
-        }*/
+         $('.pop').load("ajax/test.html", function () {
+         $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+         $('#imagemodal').modal('show');
+         });
+         }*/
 
-        $(function () {
-            $("#table").on("click", ".pop", function () {
-                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-                $('#imagemodal').modal('show');
-            });
-            
-        });
 
     </script>
 
@@ -79,7 +72,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div align="right" class="panel-heading">
-                    <a class="btn btn-success" href="<?php echo site_url('admin/_slideController/upload_slide') ?>"><i class="glyphicon glyphicon-plus"></i>Upload Slide</a>
+                    <a class="btn btn-success" href="<?php echo site_url('admin/_productController/upload_product') ?>"><i class="glyphicon glyphicon-plus"></i>Upload Product</a>
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i>Reload</button>
                 </div>
                 <div class="panel-body">
@@ -87,8 +80,15 @@
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Date</th>
+                                    <th>Category</th>
+                                    <th>Product Name</th>
+                                    <th>Sku</th>
+                                    <th>Vote</th>
+                                    <th>Color</th>
+                                    <th>Metarial</th>
+                                    <th>Detail</th>
+                                    <th>Product date</th>
+                                    <th>Price</th>
                                     <th style="width:125px;">Action</th>
                                 </tr>
                             </thead>
@@ -113,19 +113,19 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title">Slide Form</h3>
+                    <h3 class="modal-title">Product Form</h3>
                 </div>
                 <div class="modal-body form">
                     <form action="#" id="form" class="form-horizontal">
                         <input type="hidden" value="" name="id"/> 
                         <div class="form-body">
-                            <!--<div class="form-group">
+                            <div class="form-group">
                                 <label class="control-label col-md-3">Slide URL</label>
                                 <div class="col-md-9">
-                                    <input readonly name="slide_url" placeholder="Slide URL" class="form-control" type="text">
+                                    <input readonly name="product_name" placeholder="Product Name" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                                </div-->
+                            </div
                             <input  name="slide_url" placeholder="Slide URL" class="form-control" type="hidden">
                             <div class="form-group">
                                 <label class="control-label col-md-3">Slide Date</label>
@@ -146,16 +146,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">              
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <img src="" class="imagepreview" style="width: 100%;" >
-                </div>
-            </div>
-        </div>
-    </div>
+    
     <!-- End Bootstrap modal -->
 </div>
 

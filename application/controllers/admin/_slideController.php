@@ -26,7 +26,11 @@ class _SlideController extends Admin_Controller {
         //$this->template['megamenu'] = $this->load->view('layout/megamenu', $data, true);
         $this->render('admin/slide_view', $this->data, $dataname);
     }
-
+    function upload_slide()
+    {
+        //load file upload form
+        $this->load->view('admin/upload_slide');
+    }
     public function ajax_list() {
         $list = $this->SlideModel->get_datatables($this->table);
         $data = array();
@@ -81,7 +85,7 @@ class _SlideController extends Admin_Controller {
     {
         //set preferences
         $this->load->helper(array('form', 'url'));
-        $config['upload_path'] = './uploads/';
+        $config['upload_path'] = './uploads/slide/';
         $config['allowed_types'] = 'jpg';
         $config['max_size']    = '1000';
 
@@ -91,7 +95,7 @@ class _SlideController extends Admin_Controller {
         {
             // case - failure
             $upload_error = array('error' => $this->upload->display_errors());
-            $this->load->view('admin/upload_slide', $upload_error);
+            $this->load->view('admin/_slideController/upload_slide', $upload_error);
             
         }
         else
@@ -99,10 +103,10 @@ class _SlideController extends Admin_Controller {
             // case - success
             $upload_data = $this->upload->data();
             $data['success_msg'] = '<div class="alert alert-success text-center">Your file <strong>' . $upload_data['file_name'] . '</strong> was successfully uploaded!</div>';
-            $this->load->view('admin/upload_slide', $data);
+            $this->load->view('admin/_slideController/upload_slide', $data);
             
             $date=date("Y-m-d");
-            $slide_url=  base_url().'uploads/'.$upload_data['file_name'];
+            $slide_url=  base_url().'uploads/slide/'.$upload_data['file_name'];
             $data_insert['slide_url']=$slide_url;
             $data_insert['slide_date']=$date;
             $this->SlideModel->save($data_insert, $this->table);
