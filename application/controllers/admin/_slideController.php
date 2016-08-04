@@ -36,7 +36,7 @@ class _SlideController extends Admin_Controller {
             $row = array();
             for ($i = 0; $i < count($this->table_field); $i++) {
                 if ($this->table_field[$i] == "slide_url") {
-                    $row[]="<img  src=".base_url('uploads/Chrysanthemum.jpg')." width=100 height=100>Chrysanthemum.jpg";
+                    $row[]="<a href='#'  class='pop' > <img  src=".get_object_vars($obj)[$this->table_field[$i]]." width=80 height=80></a>";
                 } else {
                     $row[] = get_object_vars($obj)[$this->table_field[$i]];
                 }
@@ -102,9 +102,9 @@ class _SlideController extends Admin_Controller {
             $this->load->view('admin/upload_slide', $data);
             
             $date=date("Y-m-d");
-            $slide_url=$upload_data['full_path'];
+            $slide_url=  base_url().'uploads/'.$upload_data['file_name'];
             $data_insert['slide_url']=$slide_url;
-            $data_insert['date']=$date;
+            $data_insert['slide_date']=$date;
             $this->SlideModel->save($data_insert, $this->table);
         }
         //redirect('_slideController/index', 'refresh');

@@ -22,13 +22,16 @@ class MY_Controller extends CI_Controller {
 
     public function layout() {
         // making template and send data to view.
-
+        $this->load->Model("admin/_slideModel","SlideModel");
+        $data['slide'] = $this->SlideModel->listall();
         $this->load->Model("CategoryModel");
         $data['category'] = $this->CategoryModel->listall();
+        
+        
+        
         $this->template['megamenu'] = $this->load->view('layout/megamenu', $data, true);
-
         $this->template['header'] = $this->load->view('layout/header', $this->data, true);
-        $this->template['content'] = $this->load->view('layout/content', $this->data, true);
+        $this->template['content'] = $this->load->view('layout/content', $this->data, true);        
         $this->template['topnew'] = $this->load->view('layout/topnew', $this->data, true);
         $this->template['recommendation'] = $this->load->view('layout/recommendation', $this->data, true);
         $this->template['footer'] = $this->load->view('layout/footer', $this->data, true);

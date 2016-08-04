@@ -6,7 +6,7 @@
 <script type="text/javascript">
     var save_method; //for save method string
     var table;
-    
+
     $(document).ready(function () {
         //datatables
         table = $('#table').DataTable({
@@ -42,6 +42,8 @@
          $(this).parent().parent().removeClass('has-error');
          $(this).next().empty();
          });*/
+        //datepicker
+        
 
     });
 
@@ -56,14 +58,14 @@
         $('#modal_form').modal('show'); // show bootstrap modal
         $('.modal-title').text('Add User'); // Set Title to Bootstrap modal title
     }
-    
-    
+
+
     function reload_table()
     {
         table.ajax.reload(null, false); //reload datatable ajax 
     }
-    
-    
+
+
     function save()
     {
         $('#btnSave').text('saving...'); //change button text
@@ -72,15 +74,14 @@
 
         if (save_method == 'add') {
             url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_add";
-        } else if(save_method == 'update'){
+        } else if (save_method == 'update') {
             url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_update";
-        }
-        else if(save_method == 'upload')
+        } else if (save_method == 'upload')
         {
-            
-            url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_upload";            
+
+            url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_upload";
         }
-        
+
         // ajax adding data to database
         $.ajax({
             url: url,
@@ -92,7 +93,7 @@
 
                 if (data.status) //if success close modal and reload ajax table
                 {
-                    
+
                     $('#modal_form').modal('hide');
                     reload_table();
                 } else

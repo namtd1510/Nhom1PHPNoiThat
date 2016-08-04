@@ -43,13 +43,43 @@
             $('#modal_form').modal('show'); // show bootstrap modal
             $('.modal-title').text('Upload'); // Set Title to Bootstrap modal title
         }
+        $(document).ready(function () {
+            $('.datepicker').datepicker({
+                autoclose: true,
+                format: "yyyy-mm-dd",
+                todayHighlight: true,
+                orientation: "top auto",
+                todayBtn: true,
+                todayHighlight: true,
+            });
+        });
+
+
+
+        /*function load_image() {
+            $('.pop').load("ajax/test.html", function () {
+                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                $('#imagemodal').modal('show');
+            });
+        }*/
+
+        $(function () {
+            $("#table").on("click", ".pop", function () {
+                $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                $('#imagemodal').modal('show');
+            });
+            
+        });
+
     </script>
+
+
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div align="right" class="panel-heading">
-                    <a class="btn btn-success" href="<?php echo site_url('admin/uploadfile')?>"><i class="glyphicon glyphicon-plus"></i>Upload Slide</a>
+                    <a class="btn btn-success" href="<?php echo site_url('admin/uploadfile') ?>"><i class="glyphicon glyphicon-plus"></i>Upload Slide</a>
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i>Reload</button>
                 </div>
                 <div class="panel-body">
@@ -89,21 +119,23 @@
                     <form action="#" id="form" class="form-horizontal">
                         <input type="hidden" value="" name="id"/> 
                         <div class="form-body">
-                            <div class="form-group">
-                                <label class="control-label col-md-3">User Name</label>
+                            <!--<div class="form-group">
+                                <label class="control-label col-md-3">Slide URL</label>
                                 <div class="col-md-9">
-                                    <input name="slide_url" placeholder="Slide URL" class="form-control" type="text">
+                                    <input readonly name="slide_url" placeholder="Slide URL" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                            </div>
+                                </div-->
+                            <input  name="slide_url" placeholder="Slide URL" class="form-control" type="hidden">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Password</label>
+                                <label class="control-label col-md-3">Slide Date</label>
                                 <div class="col-md-9">
-                                    <input name="slide_date" placeholder="Slide Date" class="form-control" type="text">
+                                    <input class="form-control datepicker" type="text" placeholder="yyyy-mm-dd" name="slide_date" kl_virtual_keyboard_secure_input="on">
+
                                     <span class="help-block"></span>
                                 </div>
                             </div>                            
-                            
+
                         </div>
                     </form>
                 </div>
@@ -114,6 +146,16 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+    <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">              
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <img src="" class="imagepreview" style="width: 100%;" >
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- End Bootstrap modal -->
 </div>
 
