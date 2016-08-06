@@ -11,7 +11,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3 well">
-                    <legend>Upload Product</legend>
+                    <legend>Add Product</legend>
                     <?php echo form_open_multipart('admin/_ProductController/upload'); ?>
                     <input type="hidden" name="product_id" value="<?php echo $product_id?>">    
                     <fieldset>

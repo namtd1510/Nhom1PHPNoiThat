@@ -54,14 +54,7 @@
             });
         });
 
-
-
-        /*function load_image() {
-         $('.pop').load("ajax/test.html", function () {
-         $('.imagepreview').attr('src', $(this).find('img').attr('src'));
-         $('#imagemodal').modal('show');
-         });
-         }*/
+        
 
 
     </script>
@@ -72,16 +65,15 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div align="right" class="panel-heading">
-                    <a class="btn btn-success" href="<?php echo site_url('admin/_productController/upload_product') ?>"><i class="glyphicon glyphicon-plus"></i>Upload Product</a>
+                    <button class="btn btn-success" onclick="add_ajax()"><i class="glyphicon glyphicon-plus"></i>Add Product</button>
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i>Reload</button>
                 </div>
-                <div class="panel-body">
+                <div class="panel-body">                    
                     <div class="dataTable_wrapper">
                         <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>Category</th>
-                                    <th>Product Name</th>
                                     <th>Sku</th>
                                     <th>Vote</th>
                                     <th>Color</th>
@@ -120,22 +112,68 @@
                         <input type="hidden" value="" name="id"/> 
                         <div class="form-body">
                             <div class="form-group">
-                                <label class="control-label col-md-3">Slide URL</label>
-                                <div class="col-md-9">
-                                    <input readonly name="product_name" placeholder="Product Name" class="form-control" type="text">
+                                <label class="control-label col-md-3">Category</label>
+                                <div class="col-md-5">
+                                    <input name="category_id" placeholder="Categoy" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                            </div
-                            <input  name="slide_url" placeholder="Slide URL" class="form-control" type="hidden">
+                            </div>  
                             <div class="form-group">
-                                <label class="control-label col-md-3">Slide Date</label>
-                                <div class="col-md-9">
-                                    <input class="form-control datepicker" type="text" placeholder="yyyy-mm-dd" name="slide_date" kl_virtual_keyboard_secure_input="on">
-
+                                <label class="control-label col-md-3">Product Name</label>
+                                <div class="col-md-5">
+                                    <input name="product_name" placeholder="Product Name" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
-                            </div>                            
-
+                            </div>  
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Sku</label>
+                                <div class="col-md-5">
+                                    <input name="sku" placeholder="Sku" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Vote</label>
+                                <div class="col-md-5">
+                                    <input name="vote" placeholder="Vote" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>   
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Color</label>
+                                <div class="col-md-5">
+                                    <input name="color" placeholder="Color" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Metarial</label>
+                                <div class="col-md-5">
+                                    <input name="metarial" placeholder="Metarial" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>                          
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Detail</label>
+                                <div class="col-md-5">
+                                    <input name="detail" placeholder="Detail" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div> 
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Product Date</label>
+                                <div class="col-md-5">
+                                    <input class="form-control datepicker" type="text" placeholder="yyyy-mm-dd" name="product_date" kl_virtual_keyboard_secure_input="on">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>  
+                            <div class="form-group">
+                                <label class="control-label col-md-3">Price</label>
+                                <div class="col-md-5">
+                                    <input name="price" placeholder="Price" class="form-control" type="text">
+                                    <span class="help-block"></span>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -146,7 +184,7 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
+
     <!-- End Bootstrap modal -->
 </div>
 

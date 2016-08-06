@@ -14,6 +14,13 @@
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
 
+
+            //"bPaginate": false,
+            //"bLengthChange": false,
+            //"bFilter": true,
+            //"bInfo": false,
+            //"bAutoWidth": false,
+            //dom: 'frtlip',
             // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('admin') ?>/" + controller + "/ajax_list",
@@ -26,14 +33,10 @@
                     "orderable": false, //set not orderable
                 },
             ],
+            
         });
 
 
-        //set input/textarea/select event when change value, remove class error and remove text help block 
-        $("input").change(function () {
-            $(this).parent().parent().removeClass('has-error');
-            $(this).next().empty();
-        });
         /*$("textarea").change(function () {
          $(this).parent().parent().removeClass('has-error');
          $(this).next().empty();
@@ -43,7 +46,6 @@
          $(this).next().empty();
          });*/
         //datepicker
-        
 
     });
 
@@ -56,7 +58,7 @@
         $('.form-group').removeClass('has-error'); // clear error class
         $('.help-block').empty(); // clear error string
         $('#modal_form').modal('show'); // show bootstrap modal
-        $('.modal-title').text('Add User'); // Set Title to Bootstrap modal title
+        $('.modal-title').text('Add'); // Set Title to Bootstrap modal title
     }
 
 
