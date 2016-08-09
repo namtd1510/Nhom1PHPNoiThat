@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class _ProductController extends Admin_Controller {
 
     var $table = 'product';
-    var $table_field = array("category_id", "product_name","sku","vote","color","metarial","detail","product_date","price");
+    var $table_field = array("category_name", "product_name","sku","vote","color","metarial","detail","product_date","price");
     var $require_field = array("category_id", "product_name","sku","vote","color","metarial","detail","product_date","price");
     var $post_field = array("category_id", "product_name","sku","vote","color","metarial","detail","product_date","price");
     
@@ -27,7 +27,7 @@ class _ProductController extends Admin_Controller {
     }
     
     public function ajax_list() {
-        $list = $this->ProductModel->get_datatables($this->table);
+        $list = $this->ProductModel->get_datatables2($this->table,'category');
         $data = array();
         $no = $_POST['start'];
         foreach ($list as $obj) {
@@ -57,7 +57,10 @@ class _ProductController extends Admin_Controller {
     }
 
     public function ajax_edit($id) {
-        $data = $this->ProductModel->get_by_id($id, $this->table);
+        $data = $this->ProductModel->get_by_id2($id, $this->table,'category');
+        
+        //$this->load->Model("CategoryModel");
+        //$data=$data.$this->CategoryModel->listall();
         echo json_encode($data);
     }
 

@@ -20,12 +20,29 @@
                 dataType: "JSON",
                 success: function (data)
                 {
+                    
+                    var data1 = [
+                        {val: 1, text: "One"},
+                        {val: 2, text: "Two"},
+                    ];
 
+                    $("#category_id").append(function () {
+                        return $.map(data1, function (el, i) {
+                            return '<option value=' + el.val + '>' + el.text + '</option>';
+                        });
+                    });
                     $('[name="id"]').val(data.id);
-                    $('[name="slide_url"]').val(data.slide_url);
-                    $('[name="slide_date"]').val(data.slide_date);
+                    $('[name="category_id"]').val(data.category_id);
+                    $('[name="product_name"]').val(data.product_name);
+                    $('[name="sku"]').val(data.sku);
+                    $('[name="vote"]').val(data.vote);
+                    $('[name="color"]').val(data.color);
+                    $('[name="metarial"]').val(data.metarial);
+                    $('[name="detail"]').val(data.detail);
+                    $('[name="product_date"]').val(data.product_date);
+                    $('[name="price"]').val(data.price);
                     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
-                    $('.modal-title').text('Edit Slide'); // Set title to Bootstrap modal title
+                    $('.modal-title').text('Edit Product'); // Set title to Bootstrap modal title
 
                 },
                 error: function (jqXHR, textStatus, errorThrown)
@@ -34,6 +51,13 @@
                 }
             });
         }
+
+
+        $(document).ready(function () {
+
+
+        });
+
         function upload_ajax()
         {
             save_method = 'upload';
@@ -54,7 +78,7 @@
             });
         });
 
-        
+
 
 
     </script>
@@ -74,6 +98,7 @@
                             <thead>
                                 <tr>
                                     <th>Category</th>
+                                    <th>Product Name</th>
                                     <th>Sku</th>
                                     <th>Vote</th>
                                     <th>Color</th>
@@ -114,7 +139,8 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3">Category</label>
                                 <div class="col-md-5">
-                                    <input name="category_id" placeholder="Categoy" class="form-control" type="text">
+                                    <!--<input name="category_id" placeholder="Category" class="form-control" type="text">-->
+                                    <select name="category_id" id="category_id" class="form-control"></select>
                                     <span class="help-block"></span>
                                 </div>
                             </div>  
