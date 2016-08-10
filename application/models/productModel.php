@@ -24,7 +24,14 @@ class ProductModel extends MY_Model {
         $query = $this->db->get();
         return $query->row();
     }
-
+    public function get_by_id_array($id, $table, $table2) {
+        $this->db->select("category.category_name,product.*");
+        $this->db->from($table);
+        $this->db->join($table2, 'product.category_id = category.id');
+        $this->db->where('product.id', $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
     private function _get_datatables_query2($table, $table2) {
         $this->db->select($table2 . ".category_name," . $table . ".*");
         $this->db->from($table);

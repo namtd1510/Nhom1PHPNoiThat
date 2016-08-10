@@ -133,23 +133,29 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="clearfix"></div>		
                         </div>
                     </div>
+                    <?php
+                    foreach ($product as $p) {
+                        
+                        //echo "<div class='col-md-3 seller-grid'>";
+                        //echo "<a href='" . site_url('productController/index') . "/" . $p->id . "'></a>";
+                        //echo "</div>";
+                    
+                    ?> 
                     <div class="single-right">
-                        <h3>SPENCER 3+1+1 SOFA SET WITH 5 BIG CUSHIONS & WOODEN HANDLE</h3>
-                        <div class="id"><h4>ID: SB2379</h4></div>
+                        <h3><?php echo $p->product_name;?></h3>
+                        <div class="id"><h4><?php echo $p->sku;?></h4></div>
                         <form action="" class="sky-form">
                             <fieldset>					
                                 <section>
                                     <div class="rating">
-                                        <input type="radio" name="stars-rating" id="stars-rating-5">
-                                        <label for="stars-rating-5"><i class="icon-star"></i></label>
-                                        <input type="radio" name="stars-rating" id="stars-rating-4">
-                                        <label for="stars-rating-4"><i class="icon-star"></i></label>
-                                        <input type="radio" name="stars-rating" id="stars-rating-3">
-                                        <label for="stars-rating-3"><i class="icon-star"></i></label>
-                                        <input type="radio" name="stars-rating" id="stars-rating-2">
-                                        <label for="stars-rating-2"><i class="icon-star"></i></label>
-                                        <input type="radio" name="stars-rating" id="stars-rating-1">
-                                        <label for="stars-rating-1"><i class="icon-star"></i></label>
+                                        <?php
+                                            for($i=$p->vote;$i>=1;$i--)
+                                            {
+                                                echo '<input type="radio" name="stars-rating" id="stars-rating-'.$i.'">';
+                                                echo '<label for="stars-rating-'.$i.'"><i class="icon-star"></i></label>';
+                                                
+                                            }
+                                        ?>
                                         <div class="clearfix"></div>
                                     </div>
                                 </section>
@@ -159,7 +165,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             <div class="prdt-cost">
                                 <ul>							 
                                     <li>Sellling Price:</li>
-                                    <li class="active">Rs 35000</li>
+                                    <li class="active"><?php echo number_format($p->price)?></li>
                                     <a href="#">BUY NOW</a>
                                 </ul>
                             </div>
@@ -168,43 +174,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         </div>
                         <div class="item-list">
                             <ul>
-                                <li>Material: Solid Wood</li>
-                                <li>Color: Brown</li>
-                                <li>Style: Solid Wood</li>
-                                <li>Brand: Corelle</li>
-                                <li><a href="#">Click here for more details</a></li>
+                                <li>Material: <?php echo $p->material;?></li>
+                                <li>Color: <?php echo $p->color;?></li>
                             </ul>
                         </div>
                         <div class="single-bottom1">
                             <h6>Details</h6>
-                            <p class="prod-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.</p>
+                            <p class="prod-desc">
+                                <!--Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.-->
+                                <?php echo $p->detail;?>
+                            </p>
                         </div>					 
                     </div>
-                    <div class="clearfix"></div>
-                    <!--<div class="sofaset-info">
-                        <h4>Product Summary SPENCER 3+1+1 SOFA SET WITH 5 BIG CUSHIONS & WOODEN HANDLE</h4>
-                        <ul>
-                            <li>Dimensions: 3 Seater: Length 208 x Width 81 x Height 91.5 cm and 1 Seater: Length 99 x Width 81 x Height 91.5 cm</li>
-                            <li>Assembly Type: Pre Assembled</li>
-                            <li>Material: Wooden Structure, Chemical Treated And Seasoned Wood, 19 mm and 12 mm Commercial Ply and Mdf Used On Visible Parts</li>
-                            <li>Looks amazing in a contemporary setting</li>
-                            <li>Colour: Brown Jute, Sheron Brown</li>
-                            <li>Type: Spencer 3 plus 1 plus 1 Sofa Set With 5 Big Cushions and 6 Small Cushions, Wooden Handle</li>
-                            <li>Long lasting, durable and easy to use product</li>
-                            <li>Contents: 3 Pc</li>
-                            <li>Delivery Time: 7 to 10 days from the Day of Dispatch</li>
-                            <li>Very classy and contemporary design</li>
-                            <li>SUPC: SHG21458689652</li>
-                            <li>Material: High Density Foam and Fabric</li>
-                        </ul>
-                    </div>-->	
-                    <?php
-                    foreach ($product as $p) {
-                        echo "<div class='col-md-3 seller-grid'>";
-                        echo "<a href='" . site_url('productController/index') . "/" . $p->id . "'></a>";
-                        
-                        echo "</div>";
-                    }
+                    <div class="clearfix"></div>	
+                    <?php }
                     ?> 
                 </div>
                 <div class="rsidebar span_1_of_left">
