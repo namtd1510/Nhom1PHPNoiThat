@@ -55,12 +55,17 @@ class _ProductController extends Admin_Controller {
         $insert = $this->ProductModel->save($data, $this->table);
         echo json_encode(array("status" => TRUE));
     }
-
-    public function ajax_edit($id) {
-        $data = $this->ProductModel->get_by_id2($id, $this->table,'category');
+    public function get_category()
+    {
+        $this->load->Model("CategoryModel");
+        $data=$this->CategoryModel->listall();
+        echo json_encode($data);
         
-        //$this->load->Model("CategoryModel");
-        //$data=$data.$this->CategoryModel->listall();
+    }
+    public function ajax_edit($id) {
+        $data[0] = $this->ProductModel->get_by_id2($id, $this->table,'category');
+        $this->load->Model("CategoryModel");
+        $data[1]=$this->CategoryModel->listall();
         echo json_encode($data);
     }
 

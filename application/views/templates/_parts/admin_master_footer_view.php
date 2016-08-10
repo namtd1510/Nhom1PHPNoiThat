@@ -6,22 +6,13 @@
 <script type="text/javascript">
     var save_method; //for save method string
     var table;
-
     $(document).ready(function () {
         //datatables
+
         table = $('#table').DataTable({
             "processing": true, //Feature control the processing indicator.
             "serverSide": true, //Feature control DataTables' server-side processing mode.
             "order": [], //Initial no order.
-
-
-            //"bPaginate": false,
-            //"bLengthChange": false,
-            //"bFilter": true,
-            //"bInfo": false,
-            //"bAutoWidth": false,
-            //dom: 'frtlip',
-            // Load data for the table's content from an Ajax source
             "ajax": {
                 "url": "<?php echo site_url('admin') ?>/" + controller + "/ajax_list",
                 "type": "POST"
@@ -33,10 +24,27 @@
                     "orderable": false, //set not orderable
                 },
             ],
-            
+            initComplete: function () {
+                this.api().columns().every(function () {
+                    var column = this;
+                    var select = $('<select><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                        $(this).val()
+                                        );
+
+                                column
+                                        .search(val ? '^' + val + '$' : '', true, false)
+                                        .draw();
+                            });
+
+                    column.data().unique().sort().each(function (d, j) {
+                        select.append('<option value="' + d + '">' + d + '</option>')
+                    });
+                });
+            }
         });
-
-
         /*$("textarea").change(function () {
          $(this).parent().parent().removeClass('has-error');
          $(this).next().empty();
@@ -48,9 +56,6 @@
         //datepicker
 
     });
-
-
-
     function add_ajax()
     {
         save_method = 'add';
@@ -73,7 +78,6 @@
         $('#btnSave').text('saving...'); //change button text
         $('#btnSave').attr('disabled', true); //set button disable 
         var url;
-
         if (save_method == 'add') {
             url = "<?php echo site_url('admin') ?>/" + controller + "/ajax_add";
         } else if (save_method == 'update') {
@@ -141,7 +145,6 @@
                     alert('Error deleting data');
                 }
             });
-
         }
     }
 

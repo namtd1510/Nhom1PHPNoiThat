@@ -5,31 +5,19 @@
         </div>
         <div class="bikes-grids">			 
             <ul id="flexiselDemo1">
-                <li>
-                    <a href="products.html"><img src="<?php echo base_url(); ?>assets/images/ts1.jpg" alt=""/></a>	
+                <?php
+                foreach ($product as $p) {
+                    echo "<li><a href='products.html'><img src='".$p->image_url."' /></a>";
+                    echo '<h4><a href="products.html">'.$p->product_name.'</a></h4>';
+                    echo "<p>".$p->sku."</p></li>";
+                }
+                ?> 
+                <!--<li>
+                    <a href="products.html"><img src="<?php //echo base_url(); ?>assets/images/ts1.jpg" alt=""/></a>	
                     <h4><a href="products.html">King Size Bed</a></h4>	
                     <p>ID: KS3989</p>
-                </li>
-                <li>
-                    <a href="products.html"><img src="<?php echo base_url(); ?>assets/images/r2.jpg" alt=""/></a>	
-                    <h4><a href="products.html">Elite Diwan Seater</a></h4>	
-                    <p>ID: KS3989</p>
-                </li>
-                <li>
-                    <a href="products.html"><img src="<?php echo base_url(); ?>assets/images/r3.jpg" alt=""/></a>
-                    <h4><a href="products.html">Dior Corner Sofa</a></h4>	
-                    <p>ID: KS3989</p>
-                </li>
-                <li>
-                    <a href="products.html"><img src="<?php echo base_url(); ?>assets/images/r4.jpg" alt=""/></a>
-                    <h4><a href="products.html">Alia Modular Sofa</a></h4>	
-                    <p>ID: KS3989</p>
-                </li>
-                <li>
-                    <a href="products.html"><img src="<?php echo base_url(); ?>assets/images/r5.jpg" alt=""/></a>	
-                    <h4><a href="products.html">King Size Bed</a></h4>	
-                    <p>ID: KS3989</p>					 
-                </li>
+                </li>-->
+                
             </ul>
             <script type="text/javascript">
                 $(window).load(function () {

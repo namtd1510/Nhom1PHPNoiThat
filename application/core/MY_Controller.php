@@ -26,6 +26,8 @@ class MY_Controller extends CI_Controller {
         $data['slide'] = $this->SlideModel->listall();
         $this->load->Model("CategoryModel");
         $data['category'] = $this->CategoryModel->listall();
+        $this->load->Model("productModel","ProductModel");
+        $data['product'] = $this->ProductModel->listall();
         
         
         

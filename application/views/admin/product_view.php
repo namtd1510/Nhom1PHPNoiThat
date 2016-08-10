@@ -20,30 +20,35 @@
                 dataType: "JSON",
                 success: function (data)
                 {
-                    
-                    var data1 = [
-                        {val: 1, text: "One"},
-                        {val: 2, text: "Two"},
-                    ];
+                    var items = '';
 
-                    $("#category_id").append(function () {
-                        return $.map(data1, function (el, i) {
-                            return '<option value=' + el.val + '>' + el.text + '</option>';
-                        });
-                    });
-                    $('[name="id"]').val(data.id);
-                    $('[name="category_id"]').val(data.category_id);
-                    $('[name="product_name"]').val(data.product_name);
-                    $('[name="sku"]').val(data.sku);
-                    $('[name="vote"]').val(data.vote);
-                    $('[name="color"]').val(data.color);
-                    $('[name="metarial"]').val(data.metarial);
-                    $('[name="detail"]').val(data.detail);
-                    $('[name="product_date"]').val(data.product_date);
-                    $('[name="price"]').val(data.price);
+                    /*$("#category_id").append(function () {
+                     return $.map(data1, function (el, i) {
+                     return '<option value=' + el.val + '>' + el.text + '</option>';
+                     });
+                     });*/
+
+                    $('[name="id"]').val(data[0].id);
+                    //$('[name="category_id"]').val(data.category_id);
+                    $('[name="product_name"]').val(data[0].product_name);
+                    $('[name="sku"]').val(data[0].sku);
+                    $('[name="vote"]').val(data[0].vote);
+                    $('[name="color"]').val(data[0].color);
+                    $('[name="metarial"]').val(data[0].metarial);
+                    $('[name="detail"]').val(data[0].detail);
+                    $('[name="product_date"]').val(data[0].product_date);
+                    $('[name="price"]').val(data[0].price);
                     $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
                     $('.modal-title').text('Edit Product'); // Set title to Bootstrap modal title
 
+                    $.each(data[1], function (name, value)
+                    {
+                        if (data[0].category_id == value.id)
+                            items += "<option selected value='" + value.id + "'>" + value.category_name + "</option>";
+                        else
+                            items += "<option value='" + value.id + "'>" + value.category_name + "</option>";
+                    });
+                    $("#category_id").html(items);
                 },
                 error: function (jqXHR, textStatus, errorThrown)
                 {
@@ -53,10 +58,39 @@
         }
 
 
-        $(document).ready(function () {
+        function add_ajax2()
+        {
+            save_method = 'add';
+            $('#form')[0].reset(); // reset form on modals
+            $('.form-group').removeClass('has-error'); // clear error class
+            $('.help-block').empty(); // clear error string
+
+            $("#category_id").find('option').remove();
+            $.ajax({
+                url: "<?php echo site_url('admin') ?>/" + controller + "/get_category",
+                type: "GET",
+                dataType: "JSON",
+                success: function (data)
+                {
+                    var items = '';
+                    $.each(data, function (name, value)
+                    {
+                        items += "<option value='" + value.id + "'>" + value.category_name + "</option>";
+                    });
+                    $("#category_id").html(items);
+                },
+                error: function (jqXHR, textStatus, errorThrown)
+                {
+                    alert('Error get data from ajax');
+                }
+            });
 
 
-        });
+
+
+            $('#modal_form').modal('show'); // show bootstrap modal
+            $('.modal-title').text('Add'); // Set Title to Bootstrap modal title
+        }
 
         function upload_ajax()
         {
@@ -76,6 +110,7 @@
                 todayBtn: true,
                 todayHighlight: true,
             });
+            
         });
 
 
@@ -89,7 +124,7 @@
         <div class="col-lg-12">
             <div class="panel panel-default">
                 <div align="right" class="panel-heading">
-                    <button class="btn btn-success" onclick="add_ajax()"><i class="glyphicon glyphicon-plus"></i>Add Product</button>
+                    <button class="btn btn-success" onclick="add_ajax2()"><i class="glyphicon glyphicon-plus"></i>Add Product</button>
                     <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i>Reload</button>
                 </div>
                 <div class="panel-body">                    
@@ -110,6 +145,9 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr>
+                                    <th></th>
+                                </tr>
                             </tbody>
                         </table>                                       
                     </div>

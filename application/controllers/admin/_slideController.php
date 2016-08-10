@@ -95,7 +95,7 @@ class _SlideController extends Admin_Controller {
         {
             // case - failure
             $upload_error = array('error' => $this->upload->display_errors());
-            $this->load->view('admin/_slideController/upload_slide', $upload_error);
+            $this->load->view('admin/upload_slide', $upload_error);
             
         }
         else
@@ -103,7 +103,7 @@ class _SlideController extends Admin_Controller {
             // case - success
             $upload_data = $this->upload->data();
             $data['success_msg'] = '<div class="alert alert-success text-center">Your file <strong>' . $upload_data['file_name'] . '</strong> was successfully uploaded!</div>';
-            $this->load->view('admin/_slideController/upload_slide', $data);
+            $this->load->view('admin/upload_slide', $data);
             
             $date=date("Y-m-d");
             $slide_url=  base_url().'uploads/slide/'.$upload_data['file_name'];
