@@ -10,6 +10,7 @@ class ProductController extends CI_Controller {
     public function index($id) {
 
         $data['product'] = $this->ProductModel->get_by_id_array($id,'category','product');
+        $data['product_image'] = $this->ProductModel->get_by_id3($id,'product','image');
        
         //$this->template['megamenu'] = $this->load->view('layout/megamenu', $data, true);
         $this->load->view('product_view',$data);

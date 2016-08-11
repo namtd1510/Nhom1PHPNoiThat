@@ -80,34 +80,15 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>
-        <div class="header_top">
-            <div class="container">
-                <div class="logo">
-                    <a href="index.html"><img src="<?php echo base_url() ?>assets/images/logo.png" alt=""/></a>			 
-                </div>
-
-                <div class="clearfix"></div>	
-            </div>
-        </div>
+       
         <!--cart-->
 
-        <!------>
-        <div class="mega_nav">
-            <div class="container">
-                <div class="menu_sec">
-                    <!-- start header menu -->
-                    <ul class="megamenu skyblue">
-                        <li class="active grid"><a class="color1" href="index.html">Home</a></li>			
-                    </ul> 
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
+        
         <!---->
         <div class="single-sec">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="<?php echo site_url("Home/index")?>">Home</a></li>
                     <li class="active">Products</li>
                 </ol>
                 <!-- start content -->	
@@ -115,78 +96,70 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="single_left">
                         <div class="grid images_3_of_2">
                             <ul id="etalage">
-                                <li>
-                                    <a href="optionallink.html">
-                                        <img class="etalage_thumb_image" src="<?php echo base_url() ?>assets/images/ss1.jpg" class="img-responsive" />
-                                        <img class="etalage_source_image" src="images/ss1.jpg" class="img-responsive" title="" />
-                                    </a>
-                                </li>
-                                <li>
-                                    <img class="etalage_thumb_image" src="<?php echo base_url() ?>assets/images/ss2.jpg" class="img-responsive" />
-                                    <img class="etalage_source_image" src="<?php echo base_url() ?>assets/images/ss2.jpg" class="img-responsive" title="" />
-                                </li>							
-                                <li>
-                                    <img class="etalage_thumb_image" src="<?php echo base_url() ?>assets/images/ss4.jpg" class="img-responsive"  />
-                                    <img class="etalage_source_image" src="<?php echo base_url() ?>assets/images/ss4.jpg"class="img-responsive"  />
-                                </li>
+                                <?php
+                                foreach ($product_image as $p) {
+                                    ?> 
+                                    <li>
+                                        <img class="etalage_thumb_image" src="<?php echo $p->image_url;?>" class="img-responsive" />
+                                        <img class="etalage_source_image" src="<?php echo $p->image_url;?>" class="img-responsive" title="" />
+                                    </li>
+                                <?php }
+                                ?> 
                             </ul>
                             <div class="clearfix"></div>		
                         </div>
                     </div>
                     <?php
                     foreach ($product as $p) {
-                        
+
                         //echo "<div class='col-md-3 seller-grid'>";
                         //echo "<a href='" . site_url('productController/index') . "/" . $p->id . "'></a>";
                         //echo "</div>";
-                    
-                    ?> 
-                    <div class="single-right">
-                        <h3><?php echo $p->product_name;?></h3>
-                        <div class="id"><h4><?php echo $p->sku;?></h4></div>
-                        <form action="" class="sky-form">
-                            <fieldset>					
-                                <section>
-                                    <div class="rating">
-                                        <?php
-                                            for($i=$p->vote;$i>=1;$i--)
-                                            {
-                                                echo '<input type="radio" name="stars-rating" id="stars-rating-'.$i.'">';
-                                                echo '<label for="stars-rating-'.$i.'"><i class="icon-star"></i></label>';
-                                                
+                        ?> 
+                        <div class="single-right">
+                            <h3><?php echo $p->product_name; ?></h3>
+                            <div class="id"><h4><?php echo $p->sku; ?></h4></div>
+                            <form action="" class="sky-form">
+                                <fieldset>					
+                                    <section>
+                                        <div class="rating">
+                                            <?php
+                                            for ($i = $p->vote; $i >= 1; $i--) {
+                                                echo '<input type="radio" name="stars-rating" id="stars-rating-' . $i . '">';
+                                                echo '<label for="stars-rating-' . $i . '"><i class="icon-star"></i></label>';
                                             }
-                                        ?>
-                                        <div class="clearfix"></div>
-                                    </div>
-                                </section>
-                            </fieldset>
-                        </form>
-                        <div class="cost">
-                            <div class="prdt-cost">
-                                <ul>							 
-                                    <li>Sellling Price:</li>
-                                    <li class="active"><?php echo number_format($p->price)?></li>
-                                    <a href="#">BUY NOW</a>
+                                            ?>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </section>
+                                </fieldset>
+                            </form>
+                            <div class="cost">
+                                <div class="prdt-cost">
+                                    <ul>							 
+                                        <li>Sellling Price:</li>
+                                        <li class="active"><?php echo number_format($p->price) ?></li>
+                                        <a href="#">BUY NOW</a>
+                                    </ul>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="item-list">
+                                <ul>
+                                    <li>Material: <?php echo $p->material; ?></li>
+                                    <li>Color: <?php echo $p->color; ?></li>
                                 </ul>
                             </div>
-
-                            <div class="clearfix"></div>
+                            <div class="single-bottom1">
+                                <h6>Details</h6>
+                                <p class="prod-desc">
+                                    <!--Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.-->
+                                    <?php echo $p->detail; ?>
+                                </p>
+                            </div>					 
                         </div>
-                        <div class="item-list">
-                            <ul>
-                                <li>Material: <?php echo $p->material;?></li>
-                                <li>Color: <?php echo $p->color;?></li>
-                            </ul>
-                        </div>
-                        <div class="single-bottom1">
-                            <h6>Details</h6>
-                            <p class="prod-desc">
-                                <!--Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat.-->
-                                <?php echo $p->detail;?>
-                            </p>
-                        </div>					 
-                    </div>
-                    <div class="clearfix"></div>	
+                        <div class="clearfix"></div>	
                     <?php }
                     ?> 
                 </div>

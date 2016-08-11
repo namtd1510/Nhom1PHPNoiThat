@@ -24,10 +24,19 @@ class ProductModel extends MY_Model {
         $query = $this->db->get();
         return $query->row();
     }
+    
     public function get_by_id_array($id, $table, $table2) {
         $this->db->select("category.category_name,product.*");
         $this->db->from($table);
         $this->db->join($table2, 'product.category_id = category.id');
+        $this->db->where('product.id', $id);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    public function get_by_id3($id,$table,$table2) {
+        $this->db->select("image.id image_id,image.image_url,product.*");    
+        $this->db->from($table);        
+        $this->db->join($table2, 'product.id = image.product_id');
         $this->db->where('product.id', $id);
         $query = $this->db->get();
         return $query->result();

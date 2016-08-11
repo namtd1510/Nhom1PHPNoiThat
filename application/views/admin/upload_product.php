@@ -24,7 +24,7 @@
                         <?php
                         echo "<tr>";
                         foreach ($product as $p)
-                            echo "<td><a href='#' onclick='pop_image(".$p->image_url.");'><image src=" . $p->image_url . " width=150 height=150></a></td>";
+                            echo "<td><a id='pop' href='#'><image style='width: 150px; height: 150px;' id='imageresource' src=" . $p->image_url . "></a></td>";
                         echo "</tr><tr>";
                         foreach ($product as $p)
                             echo "<td align='center'><a href='#' onclick='remove_image(" . $p->id . "," . $p->image_id . ");'>remove</a></td>";
@@ -87,30 +87,13 @@
                     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Image preview</h4>
-                                </div>
                                 <div class="modal-body">
                                     <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
                             </div>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Popup image</button>
 
-                    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-body">
-                                    <img src="http://upload.wikimedia.org/wikipedia/commons/2/22/Turkish_Van_Cat.jpg" class="img-responsive">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -118,13 +101,13 @@
             function remove_image(product_id, image_id)
             {
                 if (confirm('Are you sure delete this data?'))
-                    //window.location.href = "<?php //echo site_url('_productController/delete_image')       ?>/".image_id;
+                    //window.location.href = "<?php //echo site_url('_productController/delete_image')           ?>/".image_id;
                     window.location.href = "<?php echo site_url('admin/_productController/delete_image') ?>/" + image_id + '/' + product_id;
             }
-            function pop_image(image_url)
-            {
-                alert(image_url);
-            }
+            $("#pop").on("click", function () {
+                $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+                $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+            });
         </script>
     </body>
 </html>
