@@ -3,8 +3,8 @@
 class _ProductModel extends MY_Model {
 
     //var $table = 'user';
-    var $column_order = array("product_name", "sku", "vote", "color", "metarial", "detail", "product_date", "price", null); //set column field database for datatable orderable
-    var $column_search = array("product_name", "sku", "vote", "color", "metarial", "detail", "product_date", "price"); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order = array("product_name", "sku", "vote", "color", "material", "detail", "product_date", "price", null); //set column field database for datatable orderable
+    var $column_search = array("product_name", "sku", "vote", "color", "material", "detail", "product_date", "price"); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $order = array('product.id' => 'desc'); // default order 
 
     public function __construct() {
@@ -22,6 +22,14 @@ class _ProductModel extends MY_Model {
         $this->db->where('product.id', $id);
         $query = $this->db->get();
         return $query->row();
+    }
+    public function get_by_id3($id,$table,$table2) {
+        $this->db->select("image.id image_id,image.image_url,product.*");    
+        $this->db->from($table);        
+        $this->db->join($table2, 'product.id = image.product_id');
+        $this->db->where('product.id', $id);
+        $query = $this->db->get();
+        return $query->result();
     }
     private function _get_datatables_query2($table,$table2) {
         $this->db->select($table2.".category_name,".$table.".*"); 

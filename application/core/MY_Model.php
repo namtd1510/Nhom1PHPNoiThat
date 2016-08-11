@@ -59,7 +59,7 @@ class MY_Model extends CI_Model {
     }
     public function delete_by_id($id,$table) {
         $this->db->where('id', $id);
-        $this->db->delete($this->table);
+        $this->db->delete($table);
     }
     public function get_by_id($id,$table) {
         $this->db->from($table);

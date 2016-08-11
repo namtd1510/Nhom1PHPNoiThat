@@ -5,9 +5,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class _ProductController extends Admin_Controller {
 
     var $table = 'product';
-    var $table_field = array("category_name", "product_name","sku","vote","color","metarial","detail","product_date","price");
-    var $require_field = array("category_id", "product_name","sku","vote","color","metarial","detail","product_date","price");
-    var $post_field = array("category_id", "product_name","sku","vote","color","metarial","detail","product_date","price");
+    var $table_field = array("category_name", "product_name","sku","vote","color","material","detail","product_date","price");
+    var $require_field = array("category_id", "product_name","sku","vote","color","material","detail","product_date","price");
+    var $post_field = array("category_id", "product_name","sku","vote","color","material","detail","product_date","price");
     
     function __construct() {
         parent::__construct();
@@ -83,6 +83,8 @@ class _ProductController extends Admin_Controller {
     function upload_product($id)
     {
         //load file upload form
+        $this->data['product'] = $this->ProductModel->get_by_id3($id, $this->table,'image');
+        
         $this->data['product_id']=$id;
         $this->load->view('admin/upload_product',$this->data);
     }
@@ -97,11 +99,13 @@ class _ProductController extends Admin_Controller {
         //load upload class library
         $this->load->library('upload', $config);
         $data['product_id']=$this->input->post('product_id');
+        
         if (!$this->upload->do_upload('filename'))
         {
             // case - failure
             
             $data['upload_error'] = array('error' => $this->upload->display_errors());
+            $data['product'] = $this->ProductModel->get_by_id3($data['product_id'], $this->table,'image');
             $this->load->view('admin/upload_product', $data);
             
         }
@@ -118,11 +122,23 @@ class _ProductController extends Admin_Controller {
             $data_insert['product_id']=$this->input->post('product_id');
             $data_insert['status']=0;
             $this->ProductModel->save($data_insert, 'image');
-            
-            $this->load->view('admin/upload_product', $data);
+            $data['product'] = $this->ProductModel->get_by_id3($data['product_id'], $this->table,'image');
+            $this->load->view('admin/upload_product',$data);
+            //$this->load->view('admin/upload_product', $data);
             //redirect('admin/_productController/upload_product/'.$this->input->post('product_id'), 'refresh');
         }
         //redirect('_slideController/index', 'refresh');
+    }
+    function delete_image()
+    {
+        $this->load->helper('file');
+        $image_id = $this->uri->segment(4);
+        $product_id  = $this->uri->segment(5);
+        $data=$this->ProductModel->get_by_id($image_id, 'image');
+        $file_name = substr(strrchr($data->image_url, "/"), 1);
+        unlink('uploads/product/'.$file_name);
+        $this->ProductModel->delete_by_id($image_id, 'image'); 
+        redirect('admin/_productController/upload_product/'.$product_id, 'refresh');
     }
 
 }
