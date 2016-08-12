@@ -7,7 +7,7 @@
                 foreach ($product as $p) {
                     echo "<div class='col-md-3 seller-grid'>";
                     echo "<a href='".  site_url('productController/index')."/".$p->id."'><img src='".$p->image_url."' /></a>";
-                    echo '<h4><a href="products.html">'.$p->product_name.'</a></h4>';
+                    echo '<h4><a href="'.site_url('productController/index')."/".$p->id.'">'.$p->product_name.'</a></h4>';
                     echo "<p>".$p->sku."</p>";
                     echo "</div>";
                 }

@@ -6,12 +6,14 @@ class ProductModel extends MY_Model {
         parent::__construct();
     }
 
-    public function listall($limit=null) {
+    public function listProductImage($limit = null, $category_id = null) {
         $this->db->select("image.image_url,status,product.*");
         $this->db->from('product');
         $this->db->join('image', 'product.id = image.product_id');
-        $this->db->where('image.status', '0');
-        $this->db->limit('5');
+        $this->db->where('image.status', '1');
+        if ($category_id != null)
+            $this->db->where('product.category_id', $category_id);
+        $this->db->limit($limit);
         $query = $this->db->get();
         return $query->result();
     }
@@ -24,7 +26,7 @@ class ProductModel extends MY_Model {
         $query = $this->db->get();
         return $query->row();
     }
-    
+
     public function get_by_id_array($id, $table, $table2) {
         $this->db->select("category.category_name,product.*");
         $this->db->from($table);
@@ -33,14 +35,16 @@ class ProductModel extends MY_Model {
         $query = $this->db->get();
         return $query->result();
     }
-    public function get_by_id3($id,$table,$table2) {
-        $this->db->select("image.id image_id,image.image_url,product.*");    
-        $this->db->from($table);        
+
+    public function get_by_id3($id, $table, $table2) {
+        $this->db->select("image.id image_id,image.image_url,product.*");
+        $this->db->from($table);
         $this->db->join($table2, 'product.id = image.product_id');
         $this->db->where('product.id', $id);
         $query = $this->db->get();
         return $query->result();
     }
+
     private function _get_datatables_query2($table, $table2) {
         $this->db->select($table2 . ".category_name," . $table . ".*");
         $this->db->from($table);

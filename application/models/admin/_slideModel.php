@@ -10,10 +10,6 @@ class _SlideModel extends MY_Model {
     public function __construct() {
         parent::__construct();
     }
-
-    public function listall() {
-        $query = $this->db->get("slide");
-        return $query->result_array();
-    }    
+  
 
 }

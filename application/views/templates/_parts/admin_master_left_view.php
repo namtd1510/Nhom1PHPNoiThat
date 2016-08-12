@@ -16,34 +16,17 @@
                             <a href="<?php echo site_url('admin/userController/index')?>"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
                         </li>
                         
+                        
                         <li>
-                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Manager<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo site_url('admin/userController/index')?>">User</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('admin/_slideController/index')?>">Slide</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo site_url('admin/_productController/index')?>">Product</a>
-                                </li>
-                                <li>
-                                    <a href="#">Third Level <span class="fa arrow"></span></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                       
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="<?php echo site_url('admin/userController/index')?>">User</a>
                         </li>
+                        <li>
+                            <a href="<?php echo site_url('admin/_slideController/index')?>">Slide</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo site_url('admin/_productController/index')?>">Product</a>
+                        </li>
+                        
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

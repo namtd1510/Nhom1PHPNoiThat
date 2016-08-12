@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Upload Silde</title>
+        <title> Upload Product</title>
         <!-- load bootstrap css file -->
         <link href="<?php echo base_url(); ?>assets/admin/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -23,11 +23,20 @@
                     <table border="5">
                         <?php
                         echo "<tr>";
+                        $check = '';
                         foreach ($product as $p)
-                            echo "<td><a id='pop' href='#'><image style='width: 150px; height: 150px;' id='imageresource' src=" . $p->image_url . "></a></td>";
+                            echo "<td><a href='#' class='pop'><image style='width: 150px; height: 150px;' id='imageresource' src=" . $p->image_url . "></a></td>";
                         echo "</tr><tr>";
                         foreach ($product as $p)
-                            echo "<td align='center'><a href='#' onclick='remove_image(" . $p->id . "," . $p->image_id . ");'>remove</a></td>";
+                        //echo "<td align='center'><label class='radio-inline'><input type='radio' " .$p->status=='0'?:' checked=checked '. "  name='optradio' onclick='radio(" . $p->id . "," . $p->image_id . ");'>Main</label></td>";
+                            if ($p->status == 0)
+                                echo "<td align='center'><label class='radio-inline'><input type='radio' name='optradio' onclick='radio(" . $p->id . "," . $p->image_id . ");'>Main</label></td>";
+                            else
+                                echo "<td align='center'><label class='radio-inline'><input checked type='radio' name='optradio' onclick='radio(" . $p->id . "," . $p->image_id . ");'>Main</label></td>";
+                        echo "</tr><tr>";
+                        foreach ($product as $p)
+                            echo "<td align='center'><a href='#' class='pop' onclick='remove_image(" . $p->id . "," . $p->image_id . ");'>remove</a></td>";
+
                         echo "</tr>";
                         ?>
                     </table>
@@ -83,12 +92,12 @@
                         echo $success_msg;
                     }
                     ?>
-                    <!-- Creates the bootstrap modal where the image will appear -->
                     <div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <div class="modal-content">
+                            <div class="modal-content">              
                                 <div class="modal-body">
-                                    <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <img src="" class="imagepreview" style="width: 100%;" >
                                 </div>
                             </div>
                         </div>
@@ -101,13 +110,34 @@
             function remove_image(product_id, image_id)
             {
                 if (confirm('Are you sure delete this data?'))
-                    //window.location.href = "<?php //echo site_url('_productController/delete_image')           ?>/".image_id;
+                    //window.location.href = "<?php //echo site_url('_productController/delete_image')                   ?>/".image_id;
                     window.location.href = "<?php echo site_url('admin/_productController/delete_image') ?>/" + image_id + '/' + product_id;
             }
-            $("#pop").on("click", function () {
-                $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
-                $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+            $(function () {
+                $('.pop').on('click', function () {
+                    $('.imagepreview').attr('src', $(this).find('img').attr('src'));
+                    $('#imagemodal').modal('show');
+                });
             });
+            function radio(product_id, image_id)
+            {
+
+                // ajax delete data to database
+                $.ajax({
+                    url: "<?php echo site_url('admin/_productController/update_image') ?>/" + image_id + '/' + product_id,
+                    type: "POST",
+                    dataType: "JSON",
+                    success: function (data)
+                    {
+                         
+                    },
+                    error: function (jqXHR, textStatus, errorThrown)
+                    {
+                        alert('Error data');
+                    }
+                });
+
+            }
         </script>
     </body>
 </html>

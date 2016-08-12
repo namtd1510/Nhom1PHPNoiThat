@@ -11,27 +11,23 @@ class _ProductModel extends MY_Model {
         parent::__construct();
     }
 
-    public function listall() {
-        $query = $this->db->get("product");
-        return $query->result_array();
-    }
-    public function get_by_id2($id,$table,$table2) {
+    public function getProductCategoryById($id) {
         $this->db->select("category.category_name,product.*");    
-        $this->db->from($table);        
-        $this->db->join($table2, 'product.category_id = category.id');
+        $this->db->from('product');        
+        $this->db->join('category', 'product.category_id = category.id');
         $this->db->where('product.id', $id);
         $query = $this->db->get();
         return $query->row();
     }
-    public function get_by_id3($id,$table,$table2) {
-        $this->db->select("image.id image_id,image.image_url,product.*");    
-        $this->db->from($table);        
-        $this->db->join($table2, 'product.id = image.product_id');
+    public function getProductImageById($id) {
+        $this->db->select("image.id image_id,image.image_url,image.status,product.*");    
+        $this->db->from('product');        
+        $this->db->join('image', 'product.id = image.product_id');
         $this->db->where('product.id', $id);
         $query = $this->db->get();
         return $query->result();
     }
-    private function _get_datatables_query2($table,$table2) {
+    private function _get_datatables_ProductCategory($table,$table2) {
         $this->db->select($table2.".category_name,".$table.".*"); 
         $this->db->from($table);
         $this->db->join($table2, 'product.category_id = category.id');
@@ -59,8 +55,8 @@ class _ProductModel extends MY_Model {
         }
     }
 
-    function get_datatables2($table,$table2) {
-        $this->_get_datatables_query2($table,$table2);
+    function get_datatablesProductCategory($table,$table2) {
+        $this->_get_datatables_ProductCategory($table,$table2);
         if ($_POST['length'] != -1)
             $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();

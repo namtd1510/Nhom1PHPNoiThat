@@ -20,14 +20,14 @@ class MY_Controller extends CI_Controller {
 
     /* Front Page Layout */
 
-    public function layout() {
+    public function layout($category_id=null) {
         // making template and send data to view.
         $this->load->Model("admin/_slideModel","SlideModel");
-        $data['slide'] = $this->SlideModel->listall();
+        $data['slide'] = $this->SlideModel->list_all('slide');
         $this->load->Model("CategoryModel");
-        $data['category'] = $this->CategoryModel->listall();
+        $data['category'] = $this->CategoryModel->list_all('category');
         $this->load->Model("productModel","ProductModel");
-        $data['product'] = $this->ProductModel->listall();
+        $data['product'] = $this->ProductModel->listProductImage('4',$category_id);
         
         
         
@@ -92,7 +92,7 @@ class Admin_Controller extends MY_Controller {
     public function string_action($id)
     {
         return '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_ajax(' . "'" . $id . "'" . ')"><i class="glyphicon glyphicon-pencil"></i> Edit</a>
-                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_ajax(' . "'" . $id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';;
+                  <a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_ajax(' . "'" . $id . "'" . ')"><i class="glyphicon glyphicon-trash"></i> Delete</a>';
     }
 
 }

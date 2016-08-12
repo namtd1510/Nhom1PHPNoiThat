@@ -34,7 +34,7 @@
                     $('[name="sku"]').val(data[0].sku);
                     $('[name="vote"]').val(data[0].vote);
                     $('[name="color"]').val(data[0].color);
-                    $('[name="metarial"]').val(data[0].metarial);
+                    $('[name="material"]').val(data[0].material);
                     $('[name="detail"]').val(data[0].detail);
                     $('[name="product_date"]').val(data[0].product_date);
                     $('[name="price"]').val(data[0].price);
@@ -137,11 +137,10 @@
                                     <th>Sku</th>
                                     <th>Vote</th>
                                     <th>Color</th>
-                                    <th>Metarial</th>
-                                    <th>Detail</th>
+                                    <th>Material</th>
                                     <th>Product date</th>
                                     <th>Price</th>
-                                    <th style="width:125px;">Action</th>
+                                    <th style="width:220px;">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -211,9 +210,9 @@
                                 </div>
                             </div> 
                             <div class="form-group">
-                                <label class="control-label col-md-3">Metarial</label>
+                                <label class="control-label col-md-3">Material</label>
                                 <div class="col-md-5">
-                                    <input name="metarial" placeholder="Metarial" class="form-control" type="text">
+                                    <input name="material" placeholder="Material" class="form-control" type="text">
                                     <span class="help-block"></span>
                                 </div>
                             </div>                          

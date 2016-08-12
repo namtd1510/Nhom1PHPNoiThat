@@ -4,11 +4,11 @@
         <div class="menu_sec">
             <!-- start header menu -->
             <ul class="megamenu skyblue">
-                <li class="active grid"><a class="color1" href="index.html">Home</a></li>
+                <li class="active grid"><a class="color1" href="<?php echo site_url('Home/index');?>">Home</a></li>
                 <?php
                 foreach ($category as $c) {
-                    echo "<li class='grid'><a class='color2' href='#'>";
-                    echo $c['category_name'];
+                    echo "<li class='grid'><a class='color2' href='".  site_url('Home/category').'/'.$c->id."'>";
+                    echo $c->category_name;
                     echo "</a></li>";
                 }
                 ?>                    

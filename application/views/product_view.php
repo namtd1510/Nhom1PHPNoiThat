@@ -80,16 +80,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 </div>
             </div>
         </div>
-       
+
         <!--cart-->
 
-        
+
         <!---->
         <div class="single-sec">
             <div class="container">
                 <ol class="breadcrumb">
-                    <li><a href="<?php echo site_url("Home/index")?>">Home</a></li>
-                    <li class="active">Products</li>
+                    <li><a href="<?php echo site_url("Home/index") ?>">Home</a></li>
+                    <?php
+                    foreach ($product as $p) {
+                        ?> 
+                        <li class="active"><?php echo $p->category_name?></li>
+                    <?php } ?>
                 </ol>
                 <!-- start content -->	
                 <div class="col-md-9 det">
@@ -100,8 +104,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 foreach ($product_image as $p) {
                                     ?> 
                                     <li>
-                                        <img class="etalage_thumb_image" src="<?php echo $p->image_url;?>" class="img-responsive" />
-                                        <img class="etalage_source_image" src="<?php echo $p->image_url;?>" class="img-responsive" title="" />
+                                        <img class="etalage_thumb_image" src="<?php echo $p->image_url; ?>" class="img-responsive" />
+                                        <img class="etalage_source_image" src="<?php echo $p->image_url; ?>" class="img-responsive" title="" />
                                     </li>
                                 <?php }
                                 ?> 
@@ -168,71 +172,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                         <div class="product_right">
                             <h4 class="m_2"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>Categories</h4>
                             <div class="tab1">
-                                <ul class="place">								
-                                    <li class="sort">Furniture</li>
-                                    <li class="by"><img src="images/do.png" alt=""></li>
-                                    <div class="clearfix"> </div>
-                                </ul>
-                                <div class="single-bottom">						
-                                    <a href="#"><p>Sofas</p></a>
-                                    <a href="#"><p>Fabric Sofas</p></a>
-                                    <a href="#"><p>Love Seats</p></a>
-                                    <a href="#"><p>Dinning Sets</p></a>
-                                </div>
-                            </div>						  
-                            <div class="tab2">
-                                <ul class="place">								
-                                    <li class="sort">Decor</li>
-                                    <li class="by"><img src="images/do.png" alt=""></li>
-                                    <div class="clearfix"> </div>
-                                </ul>
-                                <div class="single-bottom">						
-                                    <a href="#"><p>Shelves</p></a>
-                                    <a href="#"><p>Wall Racks</p></a>
-                                    <a href="#"><p>Curios</p></a>
-                                    <a href="#"><p>Ash Trays</p></a>
-                                </div>
-                            </div>
-                            <div class="tab3">
-                                <ul class="place">								
-                                    <li class="sort">Lighting</li>
-                                    <li class="by"><img src="images/do.png" alt=""></li>
-                                    <div class="clearfix"> </div>
-                                </ul>
-                                <div class="single-bottom">						
-                                    <a href="#"><p>Table Lamps</p></a>
-                                    <a href="#"><p>Tube Lights</p></a>
-                                    <a href="#"><p>Study Lamps</p></a>
-                                    <a href="#"><p>Usb Lamps</p></a>
-                                </div>
-                            </div>
-                            <div class="tab4">
-                                <ul class="place">								
-                                    <li class="sort">Bed & Bath</li>
-                                    <li class="by"><img src="images/do.png" alt=""></li>
-                                    <div class="clearfix"> </div>
-                                </ul>
-                                <div class="single-bottom">						
-                                    <a href="#"><p>Towels</p></a>
-                                    <a href="#"><p>Bath Roles</p></a>
-                                    <a href="#"><p>Mirrors</p></a>
-                                    <a href="#"><p>Soap Stands</p></a>
-                                </div>
-                            </div>
-                            <div class="tab5">
-                                <ul class="place">								
-                                    <li class="sort">Fabric</li>
-                                    <li class="by"><img src="images/do.png" alt=""></li>
-                                    <div class="clearfix"> </div>
-                                </ul>
-                                <div class="single-bottom">						
-                                    <a href="#"><p>Sofas</p></a>
-                                    <a href="#"><p>Fabric Sofas</p></a>
-                                    <a href="#"><p>Beds</p></a>
-                                    <a href="#"><p>Relax Chairs</p></a>
-                                </div>
-                            </div>
+                                <?php foreach ($category as $c) { ?>
+                                    <ul class="place">								
+                                        <a class="sort" href="<?php echo site_url('Home/category') . '/' . $c->id; ?>"><?php echo $c->category_name ?></a>
+                                    </ul>
+                                <?php } ?>
 
+
+                            </div>	
                             <!--script-->
                             <script>
                                 $(document).ready(function () {

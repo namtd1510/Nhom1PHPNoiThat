@@ -67,6 +67,11 @@ class MY_Model extends CI_Model {
         $query = $this->db->get();
         return $query->row();
     }
+    public function list_all($table) {
+        $this->db->from($table);
+        $query = $this->db->get();
+        return $query->result();
+    }
     
     public function update($where, $data,$table) {
         $this->db->update($table, $data, $where);

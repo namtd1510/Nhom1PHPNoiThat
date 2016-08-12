@@ -7,8 +7,8 @@
             <ul id="flexiselDemo1">
                 <?php
                 foreach ($product as $p) {
-                    echo "<li><a href='products.html'><img src='".$p->image_url."' /></a>";
-                    echo '<h4><a href="products.html">'.$p->product_name.'</a></h4>';
+                    echo "<li><a href='".site_url('productController/index')."/".$p->id."'><img src='".$p->image_url."' /></a>";
+                    echo '<h4><a href="'.site_url('productController/index')."/".$p->id.'">'.$p->product_name.'</a></h4>';
                     echo "<p>".$p->sku."</p></li>";
                 }
                 ?> 
